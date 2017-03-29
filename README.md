@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/hrr22-Pegasus/git-it-together.png?label=ready&title=Ready)](https://waffle.io/hrr22-Pegasus/git-it-together)
 # Git it Together
 Consolidate the tools you need to implement agile scrum on existing GitHub repositories.
 
