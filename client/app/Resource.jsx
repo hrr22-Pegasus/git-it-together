@@ -1,10 +1,11 @@
 import React from 'react';
+import TagsInput from 'react-tagsinput';
 var socket = io.connect('/io/resources');
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {id: props.projectid, user: props.user, name: null, url: null};
+    this.state = {id: props.projectid, user: props.user, name: null, url: null, tags: []};
   }
 
   componentDidMount() {
@@ -15,13 +16,13 @@ class Form extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-
     if (this.state.name && this.state.url) {
       axios.post('/api/resources', {
         projectID: this.state.id,
         name: this.state.name,
         link: this.state.url,
-        user: this.state.user
+        user: this.state.user,
+        tags: this.state.tags
       }).then(function(response) {
         socket.emit('change', 'post');
       });
@@ -33,6 +34,14 @@ class Form extends React.Component {
       $('#resourceForm').css('border', '2px solid red');
     }
   }
+
+  // defaultRenderInput ({addTag, ...props}) => {
+  //   let {onChange, value, ...other} = props
+  //   return (
+  //     <input type='text' onChange={onChange} value={value} {...other} />
+  //   )
+  // } 
+
 
   render() {
     return (
@@ -46,6 +55,11 @@ class Form extends React.Component {
           <label className="sr-only" htmlFor="resource-input-url">Resource Url</label>
           <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Url"
             onChange={(event) => this.setState({url: event.target.value})} />
+        </div>
+        <div className="col-12">
+          <label className="sr-only" htmlFor="resource-input-tags">Resource Tag</label>
+            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-tags" placeholder="Tags" 
+            value={this.state.tags} onChange={(event) => this.setState({tags: event.target.tags})} />
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">Add</button>
