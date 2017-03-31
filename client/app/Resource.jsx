@@ -48,6 +48,7 @@ class Form extends React.Component {
 
   render() {
     return (
+      <SearchInput >
       <form id="resourceForm" className="form-inline" onSubmit={this.handleSubmit.bind(this)}>
         <div className="col-12">
           <label className="sr-only" htmlFor="resource-input-name">Resource Name</label>
@@ -61,7 +62,7 @@ class Form extends React.Component {
         </div>
         <div className="col-12">
           <label className="sr-only" htmlFor="resource-input-category">Resource category</label>
-            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="category" 
+            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="Category" 
             onChange={(event) => this.setState({category: event.target.value})} />
         </div>
         <div className="col-12">
