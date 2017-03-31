@@ -1,6 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
 import Deliverable from './deliverableComponent.jsx';
+import {CurrentTasks} from './currentTask.jsx';
+import {Icebox} from './icebox.jsx';
+import {Backlog} from './backlog.jsx';
+import {CompletedTasks} from './completedTasks.jsx';
 //import { DragDropContext } from 'react-dnd';
 //import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -131,90 +135,10 @@ class List extends React.Component {
     } else {
       return (
         <div id="deliverables">
-          <div className="deliverables-section-header">
-            <h3 id="current">Current Tasks</h3>
-          </div>
-          <div className="deliverables-section-body">
-            <table className="table table-hover table-bordered table-sm">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Description</th>
-                  <th>Assignee</th>
-                  <th>Complexity</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.deliverables.current.map((deliverable) =>
-                  <Deliverable deliverable={deliverable} deleteDeliverable={this.deleteDeliverable.bind(this)} />
-                )}
-              </tbody>
-            </table>
-          </div>
-          <div className="deliverables-section-header">
-            <h3 id="backlog">Backlog</h3>
-          </div>
-          <div className="deliverables-section-body">
-            <table className="table table-hover table-bordered table-sm">
-              <thead className="hideMe">
-                <tr>
-                  <th>ID</th>
-                  <th>Description</th>
-                  <th>Asignee</th>
-                  <th>Complexity</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.deliverables.backlog.map((deliverable) =>
-                  <Deliverable deliverable={deliverable} deleteDeliverable={this.deleteDeliverable.bind(this)} />
-                )}
-              </tbody>
-            </table>
-          </div>
-          <div className="deliverables-section-header">
-            <h3 id="icebox">Icebox</h3>
-          </div>
-          <div className="deliverables-section-body">
-            <table className="table table-hover table-bordered table-sm">
-              <thead className="hideMe">
-                <tr>
-                  <th>ID</th>
-                  <th>Description</th>
-                  <th>Asignee</th>
-                  <th>Complexity</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.deliverables.icebox.map((deliverable) =>
-                  <Deliverable deliverable={deliverable} deleteDeliverable={this.deleteDeliverable.bind(this)} />
-                )}
-              </tbody>
-            </table>
-          </div>
-          <div className="deliverables-section-header">
-            <h3 id="completed">Completed Tasks</h3>
-          </div>
-          <div className="deliverables-section-body">
-            <table className="table table-hover table-bordered table-sm">
-              <thead className="hideMe">
-                <tr>
-                  <th>ID</th>
-                  <th>Description</th>
-                  <th>Asignee</th>
-                  <th>Complexity</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.deliverables.complete.map((deliverable) =>
-                  <Deliverable deliverable={deliverable} deleteDeliverable={this.deleteDeliverable.bind(this)} />
-                )}
-              </tbody>
-            </table>
-          </div>
+          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable}/>
+          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable}/>
+          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable}/>
+          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable}/>
         </div>
       );
     }
