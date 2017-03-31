@@ -6,8 +6,9 @@ import ProjectList from './ProjectList.jsx';
 import Project from './ProjectView.jsx';
 import Search from './Search.jsx';
 import ChatApp from './chatRoom.jsx';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import DrawCanvas from './DrawCanvas.jsx';
-
 import repoService from '../config/services';
 import About from './About.jsx';
 import Description from './Description.jsx';
@@ -15,7 +16,7 @@ import Description from './Description.jsx';
 
 
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -124,4 +125,5 @@ export default class App extends React.Component {
   }
 }
 
-module.exports = App;
+export default DragDropContext(HTML5Backend)(App)
+exports.App = App;
