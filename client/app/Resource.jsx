@@ -5,7 +5,7 @@ var socket = io.connect('/io/resources');
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {id: props.projectid, user: props.user, name: null, url: null, tags: []};
+    this.state = {id: props.projectid, user: props.user, name: null, url: null, category: []};
   }
 
   componentDidMount() {
@@ -22,12 +22,12 @@ class Form extends React.Component {
         name: this.state.name,
         link: this.state.url,
         user: this.state.user,
-        tags: this.state.tags
+        category: this.state.category
       }).then(function(response) {
         socket.emit('change', 'post');
       });
 
-      this.setState({name: null, url: null, tags: null});
+      this.setState({name: null, url: null, category: null});
       document.getElementById('resourceForm').reset();
       $('#resourceForm').css('border', 'none');
     } else {
@@ -57,9 +57,9 @@ class Form extends React.Component {
             onChange={(event) => this.setState({url: event.target.value})} />
         </div>
         <div className="col-12">
-          <label className="sr-only" htmlFor="resource-input-tags">Resource tags</label>
-            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-tags" placeholder="tags" 
-            onChange={(event) => this.setState({tags: event.target.value})} />
+          <label className="sr-only" htmlFor="resource-input-category">Resource category</label>
+            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="category" 
+            onChange={(event) => this.setState({category: event.target.value})} />
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">Add</button>
@@ -122,7 +122,7 @@ var Resource = ({resource, deleteResource}) => (
     <i className="fa fa-external-link"></i>
     {resource.user}:
     <a className="resourceName" target="_blank" href={resource.link}>{resource.name}</a>
-    {resource.tags}
+    {resource.category}
     <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
   </div>
 );
