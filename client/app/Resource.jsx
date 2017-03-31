@@ -1,6 +1,9 @@
 import React from 'react';
 import TagsInput from 'react-tagsinput';
+import SearchInput, {createFilter} from 'react-search-input'
 var socket = io.connect('/io/resources');
+
+
 
 class Form extends React.Component {
   constructor(props) {
@@ -126,6 +129,7 @@ var Resource = ({resource, deleteResource}) => (
     <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
   </div>
 );
+
 
 exports.Form = Form;
 exports.List = List;
