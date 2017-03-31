@@ -8,6 +8,7 @@ import Search from './Search.jsx';
 import ChatApp from './chatRoom.jsx';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import DrawCanvas from './DrawCanvas.jsx';
 import repoService from '../config/services';
 import About from './About.jsx';
 import Description from './Description.jsx';
@@ -19,7 +20,15 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { projects: props.repod.getProjects(), currentProject: null, profile: props.auth.getProfile() }
+    this.state =
+    {
+      projects: props.repod.getProjects(),
+      currentProject: null,
+      profile: props.auth.getProfile()
+
+    }
+
+
 
     props.auth.on('profile_updated', (newProfile) => {
       this.setState({profile: newProfile})
@@ -76,6 +85,7 @@ class App extends React.Component {
     //this.context.router.push('/login');//
   }
 
+
   render() {
     const { profile } = this.state
     const { auth } = this.props
@@ -107,7 +117,7 @@ class App extends React.Component {
 
           <div>
             <Nav profile={profile} logout={this.logout.bind(this)} handleProjectListEntryClick={this.handleProjectListEntryClick.bind(this)} />
-            <Project project={this.state.currentProject} profile={this.state.profile} deleteProject={this.deleteProject.bind(this)}/>
+            <Project project={this.state.currentProject} profile={this.state.profile} deleteProject={this.deleteProject.bind(this) }/>
           </div>
         );
       }

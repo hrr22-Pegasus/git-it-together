@@ -2,8 +2,10 @@ import React from 'react';
 import Deliverable from './Deliverable.jsx';
 import Resource from './Resource.jsx';
 import ChatApp from './chatRoom.jsx';
+// import DrawCanvas from './DrawCanvas.jsx';
+import DrawCanvas from './DrawCanvas.jsx';
 
-var Project = ({project, profile, deleteProject}) => (
+var Project = ({project, profile, deleteProject, canvasState}) => (
 
 
   !project ? <div className="project-view">No project found</div> :
@@ -41,9 +43,8 @@ var Project = ({project, profile, deleteProject}) => (
       </div>
       <div className="row chat-row">
         <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left">
-          <div className="video-chat-section">
-            <iframe src={"https://appear.in/git-it-together/" + project.name} width="100%" height="640" frameBorder="0"></iframe>
-          </div>
+        <DrawCanvas canvasState = {canvasState} />
+
         </div>
         <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-right">
           <div className="chat-section">
