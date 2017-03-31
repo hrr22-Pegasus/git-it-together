@@ -171,7 +171,7 @@ em. 1em = the value of the font-size of the element on which it is applied. So i
 benefit: their scalability and you don't have to adjust the px value of everything if you want to scale up or down.
 */
 /*also, we used the same template for each of these sections for uniformity- it's nicer to look at*/
-.deliverables-section, .resources-section, .project-details, .chat-section, .project-list-header, .projects-section, #deliverables {
+.deliverables-section, .resources-section, .project-details, .chat-section, .drawCanvas-section,.project-list-header, .projects-section, #deliverables {
   position: relative;
   padding: 1.5rem;
   border: .2rem solid #f7f7f9;
@@ -231,6 +231,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
   height: 640px;
 }
 
+.drawCanvas-section {
+  height: 640px;
+}
 .resources-section {
   height: 100%;
 }
@@ -458,6 +461,10 @@ a.repoNav {
 
   /*off-set the extra space at the bottom of the appear.in window*/
   .chat-section {
+    margin-top: -.5rem;
+  }
+
+  .drawCanvas-section{
     margin-top: -.5rem;
   }
 
