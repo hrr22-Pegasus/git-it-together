@@ -1,8 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
-import { Deliverable, deliverableSource } from './deliverableComponent.jsx';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import Deliverable from './deliverableComponent.jsx';
+//import { DragDropContext } from 'react-dnd';
+//import HTML5Backend from 'react-dnd-html5-backend';
 
 var socket = io.connect('/io/deliverables');
 
@@ -223,4 +223,4 @@ class List extends React.Component {
 
 exports.Form = Form;
 exports.List = List;
-exports.DragDropContext = DragDropContext(HTML5Backend)(List);
+//exports.DragDropContext = DragDropContext(HTML5Backend)(List);
