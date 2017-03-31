@@ -16,7 +16,8 @@ var Resource = db.define('Resource', {
   project_id: Sequelize.INTEGER,
   user: Sequelize.STRING,
   name: Sequelize.STRING,
-  link: Sequelize.STRING
+  link: Sequelize.STRING,
+  tags: Sequelize.ARRAY(Sequelize.STRING)
 });
 
 Resource.belongsTo(Project, {foreignKey: 'project_id'});

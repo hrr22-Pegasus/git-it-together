@@ -27,7 +27,7 @@ class Form extends React.Component {
         socket.emit('change', 'post');
       });
 
-      this.setState({name: null, url: null});
+      this.setState({name: null, url: null, tags: null});
       document.getElementById('resourceForm').reset();
       $('#resourceForm').css('border', 'none');
     } else {
@@ -57,9 +57,9 @@ class Form extends React.Component {
             onChange={(event) => this.setState({url: event.target.value})} />
         </div>
         <div className="col-12">
-          <label className="sr-only" htmlFor="resource-input-tags">Resource Tag</label>
-            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-tags" placeholder="Tags" 
-            value={this.state.tags} onChange={(event) => this.setState({tags: event.target.tags})} />
+          <label className="sr-only" htmlFor="resource-input-tags">Resource tags</label>
+            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-tags" placeholder="tags" 
+            onChange={(event) => this.setState({tags: event.target.value})} />
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">Add</button>
@@ -122,6 +122,7 @@ var Resource = ({resource, deleteResource}) => (
     <i className="fa fa-external-link"></i>
     {resource.user}:
     <a className="resourceName" target="_blank" href={resource.link}>{resource.name}</a>
+    {resource.tags}
     <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
   </div>
 );
