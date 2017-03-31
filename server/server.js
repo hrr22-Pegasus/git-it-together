@@ -71,7 +71,7 @@ drawroom.on('connection', (socket) => {
 
   socket.on('drawing', (picture) => {
     console.log("picture being drawin from server side: ", picture);
-    drawroom.to(currentRoom).broadcast.emit('drawing', picture);
+    drawroom.to(currentRoom).emit('drawing', picture);
   });
 
   //Listen for disconnects from socket

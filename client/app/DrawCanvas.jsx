@@ -133,7 +133,7 @@ var DrawCanvas = React.createClass({
       }
 
 
-      this.draw(lastX, lastY, currentX, currentY);
+      this.draw(lastX, lastY, currentX, currentY, true);
       this.setState({
         lastX: currentX,
         lastY: currentY
@@ -145,7 +145,7 @@ var DrawCanvas = React.createClass({
       drawing: false
     });
   },
-  draw(lX, lY, cX, cY){
+  draw(lX, lY, cX, cY, emit){
     console.log("drawing......")
     // console.log("lX: ", lX);
     // console.log("ly: ", lY);
@@ -160,6 +160,10 @@ var DrawCanvas = React.createClass({
     this.state.context.lineTo(cX,cY);
     this.state.context.stroke();
 
+    if (!emit) {
+      console.log("no emit... exiting draw function without emitting")
+      return;
+    }
 
     socket.emit("drawing", {
       lX: lX,
