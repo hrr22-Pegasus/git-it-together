@@ -7,9 +7,11 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
-const PropTypes = React.PropTypes;
+var PropTypes = React.PropTypes;
+var socket = io('/io/drawroom');
+console.log(socket);
 
-const DrawCanvas = React.createClass({
+var DrawCanvas = React.createClass({
   propTypes: {
     brushColor: PropTypes.string,
     lineWidth: PropTypes.number,
@@ -41,27 +43,52 @@ const DrawCanvas = React.createClass({
     };
   },
   componentDidMount(){
-    let canvas = ReactDom.findDOMNode(this);
+    var canvas = ReactDom.findDOMNode(this);
 
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.width  = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    let ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
 
     this.setState({
       canvas: canvas,
       context: ctx
     });
+
+    socket.on('init', this._initialize);
+    socket.emit('room', 'DrawingRoom');
+    socket.on('drawing', this._onDrawingEvent);
+
   },
+
+  _onDrawingEvent: function(data){
+    console.log("data from _onDrawingEvent", data);
+    // var w = canvas.width;
+    // var h = canvas.height;
+    this.draw(data.lX, data.lY, data.cX, data.cY);
+  },
+
+  throttle: function(callback, delay) {
+    var previousCall = new Date().getTime();
+    return function() {
+      var time = new Date().getTime();
+
+      if ((time - previousCall) >= delay) {
+        previousCall = time;
+        callback.apply(null, arguments);
+      }
+    };
+  },
+
   componentWillReceiveProps: function(nextProps) {
     if(nextProps.clear){
       this.resetCanvas();
     }
   },
   handleOnMouseDown(e){
-    let rect = this.state.canvas.getBoundingClientRect();
+    var rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
     if(this.isMobile()){
       this.setState({
@@ -79,15 +106,23 @@ const DrawCanvas = React.createClass({
     this.setState({
       drawing: true
     });
+
+
+    var w = this.state.context.canvas.width
+    var h = this.state.context.canvas.height
+    console.log("on mouse down event")
+
+    // socket.emit('drawing', e)
+
   },
   handleOnMouseMove(e){
 
     if(this.state.drawing){
-      let rect = this.state.canvas.getBoundingClientRect();
-      let lastX = this.state.lastX;
-      let lastY = this.state.lastY;
-      let currentX;
-      let currentY;
+      var rect = this.state.canvas.getBoundingClientRect();
+      var lastX = this.state.lastX;
+      var lastY = this.state.lastY;
+      var currentX;
+      var currentY;
       if(this.isMobile()){
         currentX =  e.targetTouches[0].pageX - rect.left;
         currentY = e.targetTouches[0].pageY - rect.top;
@@ -111,15 +146,33 @@ const DrawCanvas = React.createClass({
     });
   },
   draw(lX, lY, cX, cY){
+    console.log("drawing......")
+    // console.log("lX: ", lX);
+    // console.log("ly: ", lY);
+    // console.log("cX: ", cX);
+    // console.log("cy: ", cY);
+    // console.log("emit: ", emit);
+
+
     this.state.context.strokeStyle = this.props.brushColor;
     this.state.context.lineWidth = this.props.lineWidth;
     this.state.context.moveTo(lX,lY);
     this.state.context.lineTo(cX,cY);
     this.state.context.stroke();
+
+
+    socket.emit("drawing", {
+      lX: lX,
+      lY: lY,
+      cX: cX,
+      cY: cY
+
+    })
+
   },
   resetCanvas(){
-    let width = this.state.context.canvas.width;
-    let height = this.state.context.canvas.height;
+    var width = this.state.context.canvas.width;
+    var height = this.state.context.canvas.height;
     this.state.context.clearRect(0, 0, width, height);
   },
   getDefaultStyle(){
@@ -129,8 +182,8 @@ const DrawCanvas = React.createClass({
     };
   },
   canvasStyle(){
-    let defaults =  this.getDefaultStyle();
-    let custom = this.props.canvasStyle;
+    var defaults =  this.getDefaultStyle();
+    var custom = this.props.canvasStyle;
     return Object.assign({}, defaults, custom);
   },
   isMobile(){
@@ -154,7 +207,6 @@ const DrawCanvas = React.createClass({
   }
 
 });
-
 
 
 module.exports = DrawCanvas;

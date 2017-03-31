@@ -114,6 +114,7 @@ var ChatApp = React.createClass({
   },
 
   _messageRecieve(message) {
+    console.log("message being recieved", message)
     var {messages} = this.state;
     messages.push(message);
     this.setState({messages});
