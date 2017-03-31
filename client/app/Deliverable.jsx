@@ -1,5 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
+import { Deliverable, deliverableSource } from './deliverableComponent.jsx';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 var socket = io.connect('/io/deliverables');
 
 class Form extends React.Component {
@@ -217,15 +221,6 @@ class List extends React.Component {
   }
 }
 
-var Deliverable = ({deliverable, deleteDeliverable}) => (
-  <tr>
-    <th scope="row">{deliverable.id}</th>
-    <td>{deliverable.task}</td>
-    <td>{deliverable.owner}</td>
-    <td>{deliverable.points}</td>
-    <td><i className="fa fa-times right" aria-hidden="true" onClick={() => deleteDeliverable(deliverable.id)}></i></td>
-  </tr>
-);
-
 exports.Form = Form;
 exports.List = List;
+exports.DragDropContext = DragDropContext(HTML5Backend)(List);
