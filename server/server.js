@@ -45,9 +45,41 @@ chatroom.on('connection', (socket) => {
 
   //Listen for disconnects from socket
   socket.on('disconnect', () => {
-    console.log ('A user disconnected');
+    console.log ('A user disconnected from the chatroom');
   });
 });
+
+var drawroom = io.of('/io/drawroom');
+drawroom.on('connection', (socket) => {
+  var currentRoom = 'lobby';
+  socket.on('room', (room) => {
+    // if user is already in a room, leave room
+    if (socket.room) {
+      socket.leave(socket.room);
+    }
+    socket.join(room);
+    console.log('A user has connected to DRAWROOM: ' + room);
+    currentRoom = room;
+
+    // TODO:
+    // requestHandler.getMessages(currentRoom).then((messages) => {
+    //   drawroom.to(currentRoom).emit('savedMessages', messages);
+    // });
+
+
+  });
+
+  socket.on('drawing', (picture) => {
+    console.log("picture being drawin from server side: ", picture);
+    drawroom.to(currentRoom).emit('drawing', picture);
+  });
+
+  //Listen for disconnects from socket
+  socket.on('disconnect', () => {
+    console.log ('A user disconnected from the drawroom');
+  });
+});
+
 
 //Listen for connections to deliverable
 var deliverable = io.of('/io/deliverables');
