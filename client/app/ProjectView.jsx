@@ -7,9 +7,7 @@ import DrawCanvas from './DrawCanvas.jsx';
 
 
 const renderSection = (section, props) => {
-  console.log(props);
   const { project, profile, deleteProject } = props;
-  console.log('project', project, 'profile', profile, 'deleteProject', deleteProject);
     if (section === 'Deliverables') {
       return (<div className="deliverables-section">
           <h2>Deliverables</h2>
@@ -47,7 +45,7 @@ class Project extends Component {
     super(props);
     this.state = {
       upperLeft: 'Deliverables',
-      upperLeftResult: '',
+      upperLeftResult: renderSection('Deliverables', props),
       upperRight: 'Resources',
       bottomLeft: 'DrawCanvas',
       bottomRight: 'ChatApp'

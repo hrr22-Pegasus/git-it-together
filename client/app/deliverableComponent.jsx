@@ -1,15 +1,47 @@
 import React, { Component, PropTypes } from 'react';
 import { ItemTypes } from './itemTypes';
-import { DragSource } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 
 const deliverableSource = {
   beginDrag(props) {
     return {
-      //deliverableId: props.deliverable.id
+      id: props.id,
+      index: props.index
     };
   }
 
 };
+
+const deliverableTarget = {
+  hover(props, monitor, component) {
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
+    // Don't replace items with themselves
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+    // Determine rectangle on screen
+    const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+    // Get vertical middle
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    // Determine mouse position
+    const clientOffset = monitor.getClientOffset();
+    // Get pixels to the top
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    // Dragging downwards
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      return;
+    }
+    // Dragging upwards
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      return;
+    }
+    // Time to actually perform the action
+    props.moveDeliverable(dragIndex, hoverIndex);
+    monitor.getItem().index = hoverIndex;
+  },
+};
+
 function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),

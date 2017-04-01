@@ -6,7 +6,7 @@ import { ItemTypes } from './itemTypes';
 const currentTaskTarget = {
   drop(props, monitor) {
     // logic for updating the deliverables status
-    console.log('dropped props', props);
+    console.log('dropped props', props, 'dropped monitor', monitor);
   }
 }
 
@@ -18,11 +18,7 @@ function collect(connect, monitor) {
 }
 
 class CurrentTasks extends Component {
-  constructor(props) {
-    super(props);
-    this.deliverables = props.deliverables;
-    this.deleteDeliverable = props.deleteDeliverable;
-  }
+
   render() {
     const {
       connectDropTarget,
@@ -48,8 +44,8 @@ class CurrentTasks extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.deliverables.map((deliverable) =>
-                <Deliverable deliverable={deliverable} deleteDeliverable={this.deleteDeliverable.bind(this)} />
+              {deliverables.map((deliverable) =>
+                <Deliverable deliverable={deliverable} deleteDeliverable={deleteDeliverable.bind(this)} />
               )}
             </tbody>
           </table>
