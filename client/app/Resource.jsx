@@ -77,7 +77,6 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {project: props.project, resources: null};
-
     this.getResources();
   }
 
