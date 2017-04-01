@@ -213,7 +213,7 @@ var DrawCanvas = React.createClass({
       lY: lY/h,
       cX: cX/w,
       cY: cY/h,
-      brushColor: this.state.brushColor
+      brushColor: brushColor
     })
 
     this.state.history.push({
@@ -221,7 +221,7 @@ var DrawCanvas = React.createClass({
       lY: lY/h,
       cX: cX/w,
       cY: cY/h,
-      brushColor: this.state.brushColor
+      brushColor: brushColor
     })
 
     console.log("historyyyy : ", this.state.history)
