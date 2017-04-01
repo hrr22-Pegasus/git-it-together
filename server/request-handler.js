@@ -107,10 +107,11 @@ exports.addResource = (req, res) => {
   var link = req.body.link;
   var name = req.body.name;
   var user = req.body.user;
+  var category = req.body.category;
   if (!name) {
     name = link;
   }
-  db.Resource.create({project_id: projectID, link: link, name: name, user: user})
+  db.Resource.create({project_id: projectID, link: link, name: name, user: user, category: category})
   .then( (resources) => {
     var resourceData = resources.dataValues;
     res.status(201).send();

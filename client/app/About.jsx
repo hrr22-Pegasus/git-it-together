@@ -20,38 +20,31 @@ var About = () => (
         </div>
         <div className="modal-body">
 
-          <a target="_blank" href="https://www.linkedin.com/in/laura-meg-viar-216a92114/">
+          <a target="_blank" href="https://www.linkedin.com/in/misakimatsumoto/">
             <div className="profiles">
-              <p className="name">Meg Viar</p>
-              <img src="/client/assets/AAEAAQAAAAAAAAqZAAAAJGUyZjRkNDhmLWE3NmUtNDMyYy1hOTE4LWU3M2ZjZDFmYjIxNA.jpg" />
+              <p className="name">Misaki Matsumoto</p>
+              <img src="/client/assets/misaki.jpg" />
             </div>
           </a>
 
-          <a target="_blank" href="https://github.com/Jimmy6strings">
+          <a target="_blank" href="https://www.linkedin.com/in/samykebaish">
             <div className="profiles">
-              <p className="name">James Mitchell</p>
-              <img src="/client/assets/7969865.jpeg" />
+              <p className="name">Samy Kebaish</p>
+              <img src="/client/assets/samy.jpg" />
             </div>
           </a>
 
-          <a target="_blank" href="https://www.linkedin.com/in/jstubblefield7939/">
+          <a target="_blank" href="https://www.linkedin.com/in/jesse-hill-89b26b62">
             <div className="profiles">
-              <p className="name">Jordan Stubblefield</p>
-              <img src="/client/assets/AAEAAQAAAAAAAAg9AAAAJDRiODRkMWQ4LWE1ZWUtNDdiZC04YmIwLWRkNmMyM2JkNDVhMA.jpg" />
+              <p className="name">Jesse Hill</p>
+              <img src="/client/assets/jesse.jpg" />
             </div>
           </a>
 
-          <a target="_blank" href="https://www.linkedin.com/in/ansonkyle/">
+          <a target="_blank" href="https://www.linkedin.com/in/ryanaperry/">
             <div className="profiles">
-              <p className="name">Kyle Anson</p>
-              <img src="/client/assets/AAEAAQAAAAAAAAx-AAAAJDhjN2M0MjkzLTI5OGUtNDZhMS04MTk1LTNlN2RkNTQ4YzBlYQ.jpg" />
-            </div>
-          </a>
-
-          <a target="_blank" href="https://www.linkedin.com/in/simon-de-moor-4b340971/">
-            <div className="profiles">
-              <p className="name">Simon de Moor</p>
-              <img src="/client/assets/AAEAAQAAAAAAAAyAAAAAJGVjZjQyMTQxLTAwNjAtNGYxYy04NjM4LWJhODEwZGZiNDI2ZQ.jpg" />
+              <p className="name">Ryan Perry</p>
+              <img src="/client/assets/ryan.jpg" />
             </div>
           </a>
 

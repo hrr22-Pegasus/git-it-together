@@ -4,7 +4,7 @@ var socket = io.connect('/io/resources');
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {id: props.projectid, user: props.user, name: null, url: null};
+    this.state = {id: props.projectid, user: props.user, name: null, url: null, category: null};
   }
 
   componentDidMount() {
@@ -21,7 +21,8 @@ class Form extends React.Component {
         projectID: this.state.id,
         name: this.state.name,
         link: this.state.url,
-        user: this.state.user
+        user: this.state.user,
+        category: this.state.category
       }).then(function(response) {
         socket.emit('change', 'post');
       });
@@ -46,6 +47,11 @@ class Form extends React.Component {
           <label className="sr-only" htmlFor="resource-input-url">Resource Url</label>
           <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Url"
             onChange={(event) => this.setState({url: event.target.value})} />
+        </div>
+        <div className="col-12">
+          <label className="sr-only" htmlFor="resource-input-url">Resource Category</label>
+          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Cateogry"
+            onChange={(event) => this.setState({category: event.target.vaslue})} />
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">Add</button>
@@ -108,6 +114,7 @@ var Resource = ({resource, deleteResource}) => (
     <i className="fa fa-external-link"></i>
     {resource.user}:
     <a className="resourceName" target="_blank" href={resource.link}>{resource.name}</a>
+    {resource.category}
     <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
   </div>
 );
