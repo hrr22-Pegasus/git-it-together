@@ -133,17 +133,19 @@ var ChatApp = React.createClass({
 
   render() {
     return (
-      <div>
-        <h2>Chat about {this.props.room}</h2>
-        <hr />
-        <MessageList
-          messages={this.state.messages}
-        />
-        <MessageForm
-          onMessageSubmit={this.handleMessageSubmit}
-          user={this.props.user}
-          room={this.props.room}
-        />
+      <div className="chat-section">
+        <div>
+          <h2>Chat about {this.props.room}</h2>
+          <hr />
+          <MessageList
+            messages={this.state.messages}
+          />
+          <MessageForm
+            onMessageSubmit={this.handleMessageSubmit}
+            user={this.props.user}
+            room={this.props.room}
+          />
+        </div>
       </div>
     );
   }
