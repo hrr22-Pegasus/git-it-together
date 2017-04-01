@@ -5,7 +5,7 @@ import ChatApp from './chatRoom.jsx';
 // import DrawCanvas from './DrawCanvas.jsx';
 import DrawCanvas from './DrawCanvas.jsx';
 
-var Project = ({project, profile, deleteProject, canvasState}) => (
+var Project = ({project, profile, deleteProject}) => (
 
 
   !project ? <div className="project-view">No project found</div> :
@@ -43,7 +43,7 @@ var Project = ({project, profile, deleteProject, canvasState}) => (
       </div>
       <div className="row chat-row">
         <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left">
-        <DrawCanvas canvasState = {canvasState} />
+          <DrawCanvas />
 
         </div>
         <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-right">
