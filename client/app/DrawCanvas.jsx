@@ -216,6 +216,16 @@ var DrawCanvas = React.createClass({
       brushColor: this.state.brushColor
     })
 
+    this.state.history.push({
+      lX: lX/w,
+      lY: lY/h,
+      cX: cX/w,
+      cY: cY/h,
+      brushColor: this.state.brushColor
+    })
+
+    console.log("historyyyy : ", this.state.history)
+
   },
   resetCanvas(){
     var width = this.state.context.canvas.width;
@@ -249,7 +259,7 @@ var DrawCanvas = React.createClass({
         </div>
 
 
-        <canvas ref='canvas'
+        <canvas ref='canvas' width="100%" height="100%"
           style = {this.canvasStyle()}
           onMouseDown = {this.handleOnMouseDown}
           onTouchStart = {this.handleOnMouseDown}
