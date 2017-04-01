@@ -1,10 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
 import Deliverable from './deliverableComponent.jsx';
-import {CurrentTasks} from './currentTask.jsx';
-import {Icebox} from './icebox.jsx';
-import {Backlog} from './backlog.jsx';
-import {CompletedTasks} from './completedTasks.jsx';
+import CurrentTasks from './currentTask.jsx';
+import Icebox from './icebox.jsx';
+import Backlog from './backlog.jsx';
+import CompletedTasks from './completedTasks.jsx';
 //import { DragDropContext } from 'react-dnd';
 //import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -135,10 +135,10 @@ class List extends React.Component {
     } else {
       return (
         <div id="deliverables">
-          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable}/>
-          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable}/>
-          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable}/>
-          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable}/>
+          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
+          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
+          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
+          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
         </div>
       );
     }

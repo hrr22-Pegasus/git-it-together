@@ -1,13 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import Deliverable from './deliverableComponent.jsx';
+import { ItemTypes } from './itemTypes';
 
-// const currentTaskTarget = {
-//   drop(props, monitor) {
-//     // logic for updating the deliverables status
-//     console.log('dropped props', props);
-//   }
-// }
+const currentTaskTarget = {
+  drop(props, monitor) {
+    // logic for updating the deliverables status
+    console.log('dropped props', props);
+  }
+}
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  }
+}
 
 class CurrentTasks extends Component {
   constructor(props) {
@@ -16,11 +24,13 @@ class CurrentTasks extends Component {
     this.deleteDeliverable = props.deleteDeliverable;
   }
   render() {
-    // const {
-    //   deliverable,
-    //   deleteDeliverable
-    // } = this.props;
-    return (
+    const {
+      connectDropTarget,
+      isOver,
+      deliverables,
+      deleteDeliverable
+    } = this.props;
+    return connectDropTarget(
       <div>
         <div className="deliverables-section-header">
           <h3 id="current">Current Tasks</h3>
@@ -47,4 +57,10 @@ class CurrentTasks extends Component {
     );
   }
 }
-exports.CurrentTasks = CurrentTasks;
+CurrentTasks.PropTypes = {
+  connectDropTarget: PropTypes.func.isRequired,
+  isOver: PropTypes.bool.isRequired,
+  deliverables: PropTypes.object.isRequired,
+  deleteDeliverable: PropTypes.func.isRequired
+};
+export default DropTarget(ItemTypes.DELIVERABLE, currentTaskTarget, collect)(CurrentTasks);
