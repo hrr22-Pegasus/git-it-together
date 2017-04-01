@@ -1,14 +1,10 @@
 import React from 'react';
-import TagsInput from 'react-tagsinput';
-import SearchInput, {createFilter} from 'react-search-input'
 var socket = io.connect('/io/resources');
-
-
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {id: props.projectid, user: props.user, name: null, url: null, category: []};
+    this.state = {id: props.projectid, user: props.user, name: null, url: null, category: null};
   }
 
   componentDidMount() {
@@ -18,6 +14,7 @@ class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
 
     if (this.state.name && this.state.url) {
       axios.post('/api/resources', {
@@ -30,7 +27,7 @@ class Form extends React.Component {
         socket.emit('change', 'post');
       });
 
-      this.setState({name: null, url: null, category: null});
+      this.setState({name: null, url: null});
       document.getElementById('resourceForm').reset();
       $('#resourceForm').css('border', 'none');
     } else {
@@ -38,17 +35,8 @@ class Form extends React.Component {
     }
   }
 
-  // defaultRenderInput ({addTag, ...props}) => {
-  //   let {onChange, value, ...other} = props
-  //   return (
-  //     <input type='text' onChange={onChange} value={value} {...other} />
-  //   )
-  // } 
-
-
   render() {
     return (
-      <SearchInput >
       <form id="resourceForm" className="form-inline" onSubmit={this.handleSubmit.bind(this)}>
         <div className="col-12">
           <label className="sr-only" htmlFor="resource-input-name">Resource Name</label>
@@ -61,9 +49,9 @@ class Form extends React.Component {
             onChange={(event) => this.setState({url: event.target.value})} />
         </div>
         <div className="col-12">
-          <label className="sr-only" htmlFor="resource-input-category">Resource category</label>
-            <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="Category" 
-            onChange={(event) => this.setState({category: event.target.value})} />
+          <label className="sr-only" htmlFor="resource-input-url">Resource Category</label>
+          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Cateogry"
+            onChange={(event) => this.setState({category: event.target.vaslue})} />
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">Add</button>
@@ -77,6 +65,7 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {project: props.project, resources: null};
+
     this.getResources();
   }
 
@@ -129,7 +118,6 @@ var Resource = ({resource, deleteResource}) => (
     <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
   </div>
 );
-
 
 exports.Form = Form;
 exports.List = List;
