@@ -109,8 +109,8 @@ var DrawCanvas = React.createClass({
 
     socket.on('init', this._initialize);
     socket.emit('room', 'DrawingRoom');
-    socket.on('drawing', this._onDrawingEvent);
-    // socket.on('drawing', this._onCatchUpEvent);
+    // socket.on('drawing', this._onDrawingEvent);
+    socket.on('drawing', this._onCatchUpEvent);
 
   },
 
@@ -220,13 +220,13 @@ var DrawCanvas = React.createClass({
 
     var w = this.state.context.canvas.width
     var h = this.state.context.canvas.height
-    socket.emit("drawing", {
-      lX: lX/w,
-      lY: lY/h,
-      cX: cX/w,
-      cY: cY/h,
-      brushColor: brushColor
-    })
+    // socket.emit("drawing", {
+    //   lX: lX/w,
+    //   lY: lY/h,
+    //   cX: cX/w,
+    //   cY: cY/h,
+    //   brushColor: brushColor
+    // })
 
     this.state.history.push({
       lX: lX/w,
