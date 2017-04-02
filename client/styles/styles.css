@@ -263,17 +263,15 @@ benefit: their scalability and you don't have to adjust the px value of everythi
   display: block;
   clear: both;
   text-align: center;
+}
 
 }
 
 #section1 {
-/*	border: 3px solid #4990E2;
-*/	height: 640px;
+	border: 3px solid #4990E2;
+	height: 640px;
 	border-radius: 2.0em;
   text-align: center;
-  background-color: rgb( 155, 201, 199 );
-  border: 1px solid white;
-  box-shadow: 0 0 0 2px rgb( 155, 201, 199 );
 
 }
 
@@ -304,14 +302,18 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 /*the video chat is hardcoded at 640px, so to keep the chat next to it the same height, we also hard code it to match*/
 .chat-section {
-  height: 640px;
+  height: 1000px;
 }
 
 .drawCanvas-section {
-  height: 640px;
+  height: 1000px;
 }
 .resources-section {
+<<<<<<< HEAD
   height: 640px;
+=======
+  height: 1000px;
+>>>>>>> f3eeb149f473680e265aef05ec54d5e3f7aee13e
 }
 
 #deliverables {
