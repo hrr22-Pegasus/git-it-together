@@ -29,9 +29,12 @@ var Deliverable = db.define('Deliverable', {
   owner: Sequelize.STRING,
   task: Sequelize.STRING,
   status: Sequelize.STRING,
-  due_date: Sequelize.STRING,
+  complexity: Sequelize.STRING,
+  startDate: Sequelize.STRING,
+  dueDate: Sequelize.STRING,
   progress: Sequelize.STRING,
-  points: Sequelize.INTEGER
+  points: Sequelize.INTEGER,
+  test: Sequelize.STRING,
 });
 
 Deliverable.belongsTo(Project, {foreignKey: 'project_id'});
