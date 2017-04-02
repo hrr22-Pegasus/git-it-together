@@ -6,6 +6,9 @@ body {
   font-family: "Rubik", "Helvetica Nueue", "Helvetica", sans-serif;
   font-size: 16px;
 }
+.fa-events-icons-ready {
+  margin: 50px;
+}
 
 .fa {
   vertical-align: middle;
@@ -264,10 +267,13 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 }
 
 #section1 {
-	border: 3px solid #4990E2;
-	height: 640px;
+/*	border: 3px solid #4990E2;
+*/	height: 640px;
 	border-radius: 2.0em;
   text-align: center;
+  background-color: rgb( 155, 201, 199 );
+  border: 1px solid white;
+  box-shadow: 0 0 0 2px rgb( 155, 201, 199 );
 
 }
 
@@ -298,14 +304,14 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 /*the video chat is hardcoded at 640px, so to keep the chat next to it the same height, we also hard code it to match*/
 .chat-section {
-  height: 1000px;
+  height: 640px;
 }
 
 .drawCanvas-section {
-  height: 1000px;
+  height: 640px;
 }
 .resources-section {
-  height: 1000px;
+  height: 640px;
 }
 
 #deliverables {
