@@ -43,7 +43,8 @@ class CurrentTasks extends Component {
                 <th>Description</th>
                 <th>Assignee</th>
                 <th>Complexity</th>
-                <th></th>
+                <th>Start Date</th>
+                <th>Due Date</th>
               </tr>
             </thead>
             <tbody>

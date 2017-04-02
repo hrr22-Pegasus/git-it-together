@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Deliverable from './Deliverable.jsx';
 import Resource from './Resource.jsx';
 import ChatApp from './chatRoom.jsx';
-// import DrawCanvas from './DrawCanvas.jsx';
+import Schedule from './Schedule.jsx';
 import DrawCanvas from './DrawCanvas.jsx';
 
 const renderSection = (section, props) => {
@@ -22,7 +22,9 @@ const renderSection = (section, props) => {
     } else if (section === 'AppearIn') {
       return <iframe src={"https://appear.in/git-it-together/" + project.name} width="100%" height="640" frameBorder="0"></iframe>
     } else if (section === 'DrawCanvas') {
-      return <DrawCanvas />
+      return (<div className="chat-section">
+           <DrawCanvas />
+          </div>)
     } else if (section === 'Resources') {
       return (<div className="resources-section">
                 <h2>Resources</h2>
@@ -32,7 +34,9 @@ const renderSection = (section, props) => {
                 <Resource.List project={project} />
               </div>);
     } else if (section === 'Schedule') {
-      return <Schedule />
+      return (<div className="chat-section">
+            <Schedule project={project} />
+          </div>)
     }
   }
 

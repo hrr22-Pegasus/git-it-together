@@ -5,6 +5,10 @@ import CurrentTasks from './currentTask.jsx';
 import Icebox from './icebox.jsx';
 import Backlog from './backlog.jsx';
 import CompletedTasks from './completedTasks.jsx';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+require('react-datepicker/dist/react-datepicker.css');
 //import { DragDropContext } from 'react-dnd';
 //import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -13,7 +17,7 @@ var socket = io.connect('/io/deliverables');
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {id: props.projectid, task: null, owner: null, points: null, status: 'current'}
+    this.state = {id: props.projectid, task: null, owner: null, points: null, status: 'current', startDate: '', endDate: '', test: 'test'};
   }
 
   componentDidMount() {
@@ -23,13 +27,16 @@ class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     if (this.state.task && this.state.owner && this.state.points && this.state.status) {
       axios.post('/api/deliverables', {
         projectID: this.state.id,
         task: this.state.task,
         owner: this.state.owner,
         points: this.state.points,
-        status: this.state.status
+        status: this.state.status,
+        startDate: this.state.startDate._d,
+        dueDate: this.state.endDate._d
       }).then(function(response) {
         socket.emit('change', 'post');
       });
@@ -39,6 +46,17 @@ class Form extends React.Component {
     } else {
       $('#deliverableForm').css('border', '2px solid red');
     }
+  }
+
+  handleChangeStart(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+  handleChangeEnd(date) {
+    this.setState({
+      endDate: date
+    });
   }
 
   render() {
@@ -53,6 +71,21 @@ class Form extends React.Component {
           <label className="sr-only" htmlFor="deliverable-input-assignment">Assigned To</label>
           <input type="text" className="form-control" id="deliverable-input-assignment" placeholder="Team Member"
             onChange={(event) => this.setState({owner: event.target.value})} />
+        </div>
+        <br></br>
+        <div className="col-12">
+        <h5>Start Date</h5>
+        <DatePicker
+          selected={this.state.startDate}
+          selectsStart  startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          onChange={this.handleChangeStart.bind(this)} />
+        <h5>End Date</h5>
+        <DatePicker
+          selected={this.state.endDate}
+          selectsEnd  startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          onChange={this.handleChangeEnd.bind(this)} />
         </div>
         <div className="col-12">
           <label className="sr-only" htmlFor="deliverable-input-fibbonaci">Task Complexity</label>
@@ -104,14 +137,23 @@ class List extends React.Component {
       deliverables.backlog = [];
       deliverables.icebox = [];
       deliverables.complete = [];
+      deliverables.datesInfo = [];
       response.data.forEach(function(deliverable) {
         if (deliverable.status === 'complete') {
+          console.log("Here are the deliverables", deliverables);
           deliverables.complete.push(deliverable);
         } else if (deliverable.status === 'backlog') {
           deliverables.backlog.push(deliverable);
         } else if (deliverable.status === 'icebox') {
           deliverables.icebox.push(deliverable);
         } else if (deliverable.status === 'current') {
+          //  var year = deliverables.current.startDate.substring(0,4);
+          // var day = deliverables.current.startDate.substring(5,7);
+          // var month = deliverables.current.startDate.substring(8,10);
+
+          // console.log("Here samy!", year, day, month);
+
+
           deliverables.current.push(deliverable);
         }
       });

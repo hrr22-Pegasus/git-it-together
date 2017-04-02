@@ -138,14 +138,18 @@ exports.listResources = (req, res) => {
 // addDeliverable Response Format: 201 status only
 
 exports.addDeliverable = (req, res) => {
+  console.log("Here is the req.body", req.body);
   var projectID = req.body.projectID;
   var owner = req.body.owner;
   var task = req.body.task;
   var status = req.body.status;
-  var dueDate = req.body.dueDate;
   var progress = req.body.progress;
   var points = req.body.points;
-  db.Deliverable.create({project_id: projectID, owner: owner, task: task, status: status, due_date: dueDate, progress: progress, points: points})
+  var dueDate = req.body.dueDate;
+  var startDate = req.body.startDate;
+  var complexity = req.body.complexity;
+  var test = req.body.test;
+  db.Deliverable.create({project_id: projectID, owner: owner, task: task, status: status, dueDate: dueDate, progress: progress, points: points, startDate: startDate, complexity: complexity})
   .then( (deliverables) => {
     var deliverableData = deliverables.dataValues;
     res.status(201).send(deliverableData);

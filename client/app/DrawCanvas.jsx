@@ -252,7 +252,7 @@ var DrawCanvas = React.createClass({
   render() {
     return (
       <div>
-        <h2>Drawing Canvas </h2>
+        <h2 ref='canvas' width="100%" height="100%">Drawing Canvas </h2>
         <div className='button-bar'>
           <button onClick={this.handleOnClickChangeColorYellow}>Set color to yellow</button>
           <button onClick={this.handleOnClickChangeColorBlack}>Set color to black</button>

@@ -8,6 +8,7 @@ const deliverableSource = {
       //deliverableId: props.deliverable.id
     };
   }
+
 };
 function collect(connect, monitor) {
   return {
@@ -17,6 +18,8 @@ function collect(connect, monitor) {
 }
 
 class Deliverable extends Component {
+
+
   render() {
     const {
       connectDragSource,
@@ -30,6 +33,8 @@ class Deliverable extends Component {
         <td>{deliverable.task}</td>
         <td>{deliverable.owner}</td>
         <td>{deliverable.points}</td>
+        <td>{deliverable.startDate.substring(0,10)}</td>
+        <td>{deliverable.dueDate.substring(0,10)}</td>
         <td><i className="fa fa-times right" aria-hidden="true" onClick={() => deleteDeliverable(deliverable.id)}></i></td>
       </tr>
     );
