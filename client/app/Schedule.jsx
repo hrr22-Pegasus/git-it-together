@@ -15,15 +15,16 @@ class Schedule extends React.Component {
   constructor(props){
         super(props);
         console.log("Here is the project", props.project);
-        this.state = {project: props.project, deliverables: null};
-        this.state.events = [{
-    'title': "Jesse's Birthday",
-    'start': new Date(2017, 2, 31),
-    'end': new Date(2017, 2, 31)
-  }];
+        this.state = {project: props.project, deliverables: {
+          dates:[{
+            'title': "Jesse's Birthday",
+            'start': new Date(2017, 2, 31),
+            'end': new Date(2017, 2, 31)
+          }]
+        }};
+
 
         this.getDeliverables();
-        console.log(this.state.deliverables);
     }
 
     getDeliverables(cb) {
@@ -37,7 +38,12 @@ class Schedule extends React.Component {
       deliverables.backlog = [];
       deliverables.icebox = [];
       deliverables.complete = [];
-      deliverables.dates = [];
+      deliverables.dates = [{
+    'title': "Jesse's Birthday",
+    'start': new Date(2017, 2, 31),
+    'end': new Date(2017, 2, 31)
+  }]
+    var events = [];
       response.data.forEach(function(deliverable) {
         if (deliverable.status === 'complete') {
           deliverables.complete.push(deliverable);
@@ -47,15 +53,21 @@ class Schedule extends React.Component {
           deliverables.icebox.push(deliverable);
         } else if (deliverable.status === 'current') {
           deliverables.current.push(deliverable);
-
-          // var year = deliverables.current.startDate.substring(0,4);
-          // var day = deliverables.current.startDate.substring(5,7);
-          // var month = deliverables.current.startDate.substring(8,10);
-
-          // console.log("Here samy!", year, day, month);
-
-
+          var title = deliverable.task + "-" + deliverable.owner;
+          var year = parseInt(deliverable.startDate.substring(0,4));
+          var month = parseInt(deliverable.startDate.substring(5,7));
+          var day = parseInt(deliverable.startDate.substring(8,10));
+          var year2 = parseInt(deliverable.dueDate.substring(0,4));
+          var month2 = parseInt(deliverable.dueDate.substring(5,7));
+          var day2 = parseInt(deliverable.dueDate.substring(8,10));
+          var eventToPush = {
+            'title': title,
+            'start': new Date(year, month-1, day),
+            'end': new Date(year2, month2-1, day2)
+          };
         }
+          deliverables.dates.push(eventToPush);
+          // console.log(eventToPush);
       });
       context.forceUpdate();
     });
@@ -67,7 +79,7 @@ class Schedule extends React.Component {
     return (
       <BigCalendar
         {...this.props}
-        events={this.state.events}
+        events={this.state.deliverables.dates}
         // defaultDate={new Date(2017, 3, 31)}
       />
     )
