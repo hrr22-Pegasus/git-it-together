@@ -1,8 +1,8 @@
 /*Global Styles (not as scary as global variables)   ------------------------------------------------------------------*/
 
 body {
-  background: #2d2d2d;
-  color: #2d2d2d;
+  background: #01061A;
+  color: white;
   font-family: "Rubik", "Helvetica Nueue", "Helvetica", sans-serif;
   font-size: 16px;
 }
@@ -66,11 +66,12 @@ canvas {
 
 .navbar {
   padding: 0 1rem;
+  background-color: #01061A;
 }
 
 .navbar-brand {
-  width: 5rem;
-  margin: 0 auto;
+  width: 3rem;
+/*  margin: 0 auto;*/
   cursor: pointer;
 }
 
@@ -152,6 +153,7 @@ canvas {
 
 .project-list-entry-title {
   font-weight: bold;
+  color: #2d2d2d;
 }
 
 .project-list-entry-detail {
@@ -176,15 +178,41 @@ em. 1em = the value of the font-size of the element on which it is applied. So i
 benefit: their scalability and you don't have to adjust the px value of everything if you want to scale up or down.
 */
 /*also, we used the same template for each of these sections for uniformity- it's nicer to look at*/
-.deliverables-section, .resources-section, .project-details, .chat-section, .drawCanvas-section,.project-list-header, .projects-section, #deliverables {
+.project-list-header, .projects-section, #deliverables, .deliverables-section, .resources-section, .chat-section, .drawCanvas-section {
   position: relative;
-  padding: 1.5rem;
-  border: .2rem solid #f7f7f9;
-  color: #292b2c;
-  background-color: #fff;
-  font-size: 1rem;
+  color: white;
   font-weight: 400;
   line-height: 1.5;
+}
+
+.deliverables-section, .resources-section, .chat-section, .drawCanvas-section {
+ height: 640px;
+}
+
+/*dropdown part
+*/
+
+#deliverable-input-status1 {
+  border: 3px solid #4990E2;
+  border-radius: 0.8em;
+  text-align: center;
+}
+
+#deliverable-input-status2 {
+  border: 3px solid #D001C4;
+  border-radius: 0.8em;
+  text-align: center;
+}
+
+#deliverable-input-status3 {
+  border: 3px solid #50E3C2;
+  border-radius: 0.8em;
+  border-width: solid;
+}
+#deliverable-input-status4 {
+  border: 3px solid #F6A623;
+  border-radius: 0.8em;
+  border-width: solid;
 }
 
 /*any overflow will be contained within the container and not spill into the containers below, nor will it increase the size of the container*/
@@ -206,7 +234,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 }
 
 .project-view h1, .project-view h2, .project-view h3, .project-view h4, .project-view h5 {
-  color: #2d2d2d;
+  color: white;
+  text-align: center;
+
 }
 
 /*Overwrite the default heading color we just chose since we're changing the background*/
@@ -229,18 +259,53 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 .deliverables-section::after, .resources-section::after, .project-list-header::after, .projects-section::after {
   display: block;
   clear: both;
+  text-align: center;
+
 }
+
+#section1 {
+	border: 3px solid #4990E2;
+	height: 640px;
+	border-radius: 2.0em;
+  text-align: center;
+
+}
+
+#section2 {
+	border: 3px solid #D001C4;
+	height: 640px;
+	border-radius: 2.0em;
+  text-align: center;
+
+}
+
+#section3 {
+	border: 3px solid #50E3C2;
+	height: 640px;
+	border-radius: 2.0em;
+  border-width: solid;
+}
+
+#section4 {
+	border: 3px solid #F6A623;
+	height: 640px;
+	border-radius: 2.0em;
+  border-width: solid;
+
+}
+
+
 
 /*the video chat is hardcoded at 640px, so to keep the chat next to it the same height, we also hard code it to match*/
 .chat-section {
-  height: 640px;
+  height: 1000px;
 }
 
 .drawCanvas-section {
-  height: 640px;
+  height: 1000px;
 }
 .resources-section {
-  height: 100%;
+  height: 1000px;
 }
 
 #deliverables {
@@ -286,11 +351,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 .messageUser {
   display: inline-block;
-  float: left;
 }
 
 .messageDate {
-  float: left;
   color: grey;
   font-style: italic;
   font-size: 13px;
@@ -300,6 +363,7 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 .messageText {
   display: inline;
   margin-top: 1.5em;
+  text-align: left;
 }
 
 /*Add Repo Styles ------------------------------------------------------------------*/
@@ -325,9 +389,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 .repo-nav {
   font-family: Rubik;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 500;
-  color: black;
+  color: white;
 }
 
 .repo-nav:hover {
@@ -337,13 +401,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 .delete {
   font-size: 25px;
-  border-radius: .25em;
-}
-
-.deleteBar {
-  display: inline-block;
-  float: right;
-  margin-top: 10px;
+  color: white;
+  background-color: #01061A;
+  border-color: #01061A;
 }
 
 a.repoNav {
