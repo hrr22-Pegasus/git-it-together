@@ -137,7 +137,7 @@ class List extends React.Component {
       deliverables.backlog = [];
       deliverables.icebox = [];
       deliverables.complete = [];
-      deliverables.datesInfo = [];
+
       response.data.forEach(function(deliverable) {
         if (deliverable.status === 'complete') {
           console.log("Here are the deliverables", deliverables);
@@ -147,11 +147,7 @@ class List extends React.Component {
         } else if (deliverable.status === 'icebox') {
           deliverables.icebox.push(deliverable);
         } else if (deliverable.status === 'current') {
-          //  var year = deliverables.current.startDate.substring(0,4);
-          // var day = deliverables.current.startDate.substring(5,7);
-          // var month = deliverables.current.startDate.substring(8,10);
 
-          // console.log("Here samy!", year, day, month);
 
 
           deliverables.current.push(deliverable);
