@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
+import update from 'react/lib/update';
 import Deliverable from './deliverableComponent.jsx';
 import { ItemTypes } from './itemTypes';
 
@@ -19,13 +20,37 @@ function collect(connect, monitor) {
 
 class CurrentTasks extends Component {
 
+  constructor(props) {
+    super(props);
+    this.moveDeliverable = this.moveDeliverable.bind(this);
+    this.state = {
+      deliverables: props.deliverables
+    };
+  }
+
+  moveDeliverable(dragIndex, hoverIndex) {
+    const { deliverables } = this.state;
+    const { dragDeliverable } = deliverables[dragIndex];
+    console.log('moveDeliverable is called');
+    console.log(this);
+    this.setState(update(this.state, {
+      deliverables: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragDeliverable]
+        ]
+      }
+    }));
+  }
+
   render() {
+    console.log('state in currentTask', this.state);
     const {
       connectDropTarget,
       isOver,
-      deliverables,
       deleteDeliverable
     } = this.props;
+    const { deliverables } = this.state;
     return connectDropTarget(
       <div>
         <div className="deliverables-section-header">
@@ -44,8 +69,8 @@ class CurrentTasks extends Component {
               </tr>
             </thead>
             <tbody>
-              {deliverables.map((deliverable) =>
-                <Deliverable deliverable={deliverable} deleteDeliverable={deleteDeliverable.bind(this)} />
+              {deliverables.map((deliverable, index) =>
+                <Deliverable deliverable={deliverable} index={index} id={deliverable.id} deleteDeliverable={deleteDeliverable.bind(this)} moveDeliverable={this.moveDeliverable} />
               )}
             </tbody>
           </table>

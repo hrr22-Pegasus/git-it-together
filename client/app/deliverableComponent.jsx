@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { ItemTypes } from './itemTypes';
+import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import flow from 'lodash/flow';
 
 const deliverableSource = {
   beginDrag(props) {
+    console.log('props from devSource', props);
+    console.log('index', props.index, 'id', props.id)
     return {
       id: props.id,
       index: props.index
@@ -14,6 +18,9 @@ const deliverableSource = {
 
 const deliverableTarget = {
   hover(props, monitor, component) {
+    console.log('hover devComp', props)
+    console.log('hover component', component)
+    console.log('hover monitor', monitor.getItem());
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     // Don't replace items with themselves
@@ -55,11 +62,12 @@ class Deliverable extends Component {
   render() {
     const {
       connectDragSource,
+      connectDropTarget,
       isDragging,
       deliverable,
       deleteDeliverable
     } = this.props;
-    return connectDragSource(
+    return connectDragSource(connectDropTarget(
       <tr>
         <th scope="row">{deliverable.id}</th>
         <td>{deliverable.task}</td>
@@ -69,7 +77,7 @@ class Deliverable extends Component {
         <td>{deliverable.dueDate.substring(0,10)}</td>
         <td><i className="fa fa-times right" aria-hidden="true" onClick={() => deleteDeliverable(deliverable.id)}></i></td>
       </tr>
-    );
+    ));
   }
 }
 Deliverable.PropTypes = {
@@ -89,7 +97,10 @@ Deliverable.PropTypes = {
 // );
 // exports.Deliverable = Deliverable;
 // exports.deliverableSource = deliverableSource;
-export default DragSource(ItemTypes.DELIVERABLE, deliverableSource, collect)(Deliverable);
+export default flow(
+  DragSource(ItemTypes.DELIVERABLE, deliverableSource, collect),
+  DropTarget(ItemTypes.DELIVERABLE, deliverableTarget, connect => ({connectDropTarget: connect.dropTarget()}))
+  )(Deliverable);
 
 
 
