@@ -7,9 +7,9 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import { SliderPicker } from 'react-color';
 var PropTypes = React.PropTypes;
 var socket = io('/io/drawroom');
-console.log(socket);
 
 var DrawCanvas = React.createClass({
   propTypes: {
@@ -40,6 +40,14 @@ var DrawCanvas = React.createClass({
       history: [],
       brushColor: '#0000ff'
     };
+  },
+
+  handleChangeComplete(color){
+    this.setState({
+      brushColor: color.hex,
+      clear: false
+    });
+    console.log("this is a new state", color.hex);
   },
 
   handleOnClickChangeColorYellow() {
@@ -78,15 +86,13 @@ var DrawCanvas = React.createClass({
     console.log("canvas", canvas)
     console.log("this...being used as canvase", this);
 
-    // canvas.style.width = '100%';
-    // canvas.style.height = '100%';
-    // canvas.width  = canvas.offsetWidth;
-    // canvas.height = canvas.offsetHeight;
+    canvas.style.width = '100%';
+    canvas.style.height = '500px';
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
     var ctx = canvas.getContext('2d');
     // console.log("ctx", ctx.getImageData(0,0, canvas.width, canvas.height));
-
-
 
     // console.log("canvas width", canvas.width);
     // console.log("canvas height", canvas.height);
@@ -96,10 +102,10 @@ var DrawCanvas = React.createClass({
       canvas: canvas,
       context: ctx
     });
-    console.log("Initialized prios: ", this.props);
-    console.log("Initialized state: ", this.state);
-    console.log("Initialized canvas: ", canvas);
-    console.log("Initialized context: ", ctx);
+    // console.log("Initialized prios: ", this.props);
+    // console.log("Initialized state: ", this.state);
+    // console.log("Initialized canvas: ", canvas);
+    // console.log("Initialized context: ", ctx);
 
     socket.on('init', this._initialize);
     socket.emit('room', 'DrawingRoom');
@@ -147,18 +153,11 @@ var DrawCanvas = React.createClass({
   handleOnMouseDown(e){
     var rect = this.state.canvas.getBoundingClientRect();
     this.state.context.beginPath();
-    if(this.isMobile()){
-      this.setState({
-        lastX: e.targetTouches[0].pageX - rect.left,
-        lastY: e.targetTouches[0].pageY - rect.top
-      });
-    }
-    else{
-      this.setState({
-        lastX: e.clientX - rect.left,
-        lastY: e.clientY - rect.top
-      });
-    }
+
+    this.setState({
+      lastX: e.clientX - rect.left,
+      lastY: e.clientY - rect.top
+    });
 
     this.setState({
       drawing: true
@@ -266,14 +265,12 @@ var DrawCanvas = React.createClass({
   render() {
     return (
       <div>
-        <h2 ref='canvas' width="100%" height="100%">Drawing Canvas </h2>
-        <div className='button-bar'>
-          <button onClick={this.handleOnClickChangeColorYellow}>Set color to yellow</button>
-          <button onClick={this.handleOnClickChangeColorBlack}>Set color to black</button>
-        </div>
-
-
-        <canvas ref='canvas' style={{ width: '100%', height: '100%', backgroundColor: '#FFFFFF',cursor: 'pointer'}}
+        <h2>Drawing Canvas </h2>
+        <SliderPicker
+          color={ this.state.brushColor }
+          onChangeComplete={ this.handleChangeComplete }
+        />
+        <canvas ref='canvas' width="100%" height = "100%" style={{ width: '100%', height: '100%', backgroundColor: '#FFFFFF',cursor: 'pointer'}}
           onMouseDown = {this.handleOnMouseDown}
           onTouchStart = {this.handleOnMouseDown}
           onMouseMove = {this.handleOnMouseMove}
