@@ -43,7 +43,7 @@ var DrawCanvas = React.createClass({
   },
 
   handleOnClickChangeColorYellow() {
-    console.log("coming in brush color: ", this.props.brushColor)
+    console.log("coming in brush color: ", this.state.brushColor)
 
     this.setState({
       brushColor: '#FFFF00',
@@ -59,7 +59,7 @@ var DrawCanvas = React.createClass({
 
   handleOnClickChangeColorBlack() {
 
-    console.log("coming in brush color: ", this.props.brushColor)
+    console.log("coming in brush color: ", this.state.brushColor)
 
     this.setState({
       brushColor: '#000000',
@@ -78,18 +78,18 @@ var DrawCanvas = React.createClass({
     console.log("canvas", canvas)
     console.log("this...being used as canvase", this);
 
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    // canvas.style.width = '100%';
+    // canvas.style.height = '100%';
+    // canvas.width  = canvas.offsetWidth;
+    // canvas.height = canvas.offsetHeight;
 
     var ctx = canvas.getContext('2d');
-    console.log("ctx", ctx.getImageData(0,0, canvas.width, canvas.height));
+    // console.log("ctx", ctx.getImageData(0,0, canvas.width, canvas.height));
 
 
 
-    console.log("canvas width", canvas.width);
-    console.log("canvas height", canvas.height);
+    // console.log("canvas width", canvas.width);
+    // console.log("canvas height", canvas.height);
     //getImageData(x,y,width,height);
 
     this.setState({
@@ -104,6 +104,7 @@ var DrawCanvas = React.createClass({
     socket.on('init', this._initialize);
     socket.emit('room', 'DrawingRoom');
     socket.on('drawing', this._onDrawingEvent);
+    // socket.on('drawing', this._onCatchUpEvent);
 
   },
 
@@ -114,6 +115,16 @@ var DrawCanvas = React.createClass({
     var w = this.state.context.canvas.width
     var h = this.state.context.canvas.height
     this.draw(data.lX*w, data.lY*h, data.cX*w, data.cY*h, data.brushColor);
+  },
+
+  _onCatchUpEvent: function(history){
+    var w = this.state.context.canvas.width
+    var h = this.state.context.canvas.height
+    for(var i = 0; i < history.length; i++){
+      var currentLine = history[i];
+      this.draw(currentLine.lX*w, currentLine.lY*h, currentLine.cX*w, currentLine.cY*h, currentLine.brushColor);
+    }
+
   },
 
   throttle: function(callback, delay) {
@@ -186,6 +197,7 @@ var DrawCanvas = React.createClass({
     this.setState({
       drawing: false
     });
+    socket.emit("drawing", this.state.history);
   },
   draw(lX, lY, cX, cY, brushColor, emit){
     console.log("drawing......")
@@ -197,6 +209,7 @@ var DrawCanvas = React.createClass({
 
     this.state.context.strokeStyle = brushColor;
     this.state.context.lineWidth = this.props.lineWidth;
+    this.state.context.beginPath();
     this.state.context.moveTo(lX,lY);
     this.state.context.lineTo(cX,cY);
     this.state.context.stroke();
@@ -223,6 +236,7 @@ var DrawCanvas = React.createClass({
       cY: cY/h,
       brushColor: brushColor
     })
+
 
     console.log("historyyyy : ", this.state.history)
 
@@ -259,8 +273,7 @@ var DrawCanvas = React.createClass({
         </div>
 
 
-        <canvas ref='canvas' width="100%" height="100%"
-          style = {this.canvasStyle()}
+        <canvas ref='canvas' style={{ width: '100%', height: '100%', backgroundColor: '#FFFFFF',cursor: 'pointer'}}
           onMouseDown = {this.handleOnMouseDown}
           onTouchStart = {this.handleOnMouseDown}
           onMouseMove = {this.handleOnMouseMove}
