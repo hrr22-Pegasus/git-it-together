@@ -5,6 +5,7 @@ import ChatApp from './chatRoom.jsx';
 import Schedule from './Schedule.jsx';
 import DrawCanvas from './DrawCanvas.jsx';
 
+
 const renderSection = (section, props) => {
   console.log(props);
   const { project, profile, deleteProject } = props;
