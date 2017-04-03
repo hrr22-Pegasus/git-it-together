@@ -22,7 +22,7 @@ class Form extends React.Component {
         name: this.state.name,
         link: this.state.url,
         user: this.state.user,
-        category: this.state.category
+				category: this.state.category
       }).then(function(response) {
         socket.emit('change', 'post');
       });
@@ -48,10 +48,10 @@ class Form extends React.Component {
           <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Url"
             onChange={(event) => this.setState({url: event.target.value})} />
         </div>
-        <div className="col-12">
-          <label className="sr-only" htmlFor="resource-input-url">Resource Category</label>
-          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Cateogry"
-            onChange={(event) => this.setState({category: event.target.vaslue})} />
+				<div className="col-12">
+          <label className="sr-only" htmlFor="resource-input-category">Resource Category</label>
+          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="Category"
+            onChange={(event) => this.setState({category: event.target.value})} />
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">Add</button>
@@ -99,7 +99,7 @@ class List extends React.Component {
       );
     } else {
       return (
-        <div className="resources-section-body">
+        <div id="resources">
           {this.state.resources.map((resource) =>
             <Resource resource={resource} deleteResource={this.deleteResource.bind(this)} />
           )}
@@ -114,7 +114,7 @@ var Resource = ({resource, deleteResource}) => (
     <i className="fa fa-external-link"></i>
     {resource.user}:
     <a className="resourceName" target="_blank" href={resource.link}>{resource.name}</a>
-    {resource.category}
+		{resource.category}
     <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
   </div>
 );

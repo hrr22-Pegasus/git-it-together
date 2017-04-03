@@ -1,10 +1,13 @@
 /*Global Styles (not as scary as global variables)   ------------------------------------------------------------------*/
 
 body {
-  background: #2d2d2d;
-  color: #2d2d2d;
+  background: #01061A;
+  color: white;
   font-family: "Rubik", "Helvetica Nueue", "Helvetica", sans-serif;
   font-size: 16px;
+}
+.fa-events-icons-ready {
+  margin: 50px;
 }
 
 .fa {
@@ -23,8 +26,17 @@ textarea:focus, input:focus {
 	border: 2px solid #5597F4;
 }
 
-button, a {
+button {
   cursor: pointer;
+	border: 3px solid #F6A623;
+	border-radius: 2.0em;
+  border-width: solid;
+	background-color: #01061A;
+	color: white;
+}
+
+a {
+	cursor: pointer;
 }
 
 .hideMe {
@@ -34,6 +46,11 @@ button, a {
 canvas {
   height: 900px;
   width: 100%;
+}
+
+.jumbotron {
+	background-color: #01061A;
+	border-radius: 1.2em;
 }
 
 
@@ -60,23 +77,29 @@ canvas {
 .login img {
   width: 175px;
   margin: 1rem;
+	border-radius: 50%;
 }
 
 /*Profile thumb dropdown ------------------------------------------------------------------*/
 
 .navbar {
   padding: 0 1rem;
+  background-color: #01061A;
 }
 
 .navbar-brand {
-  width: 5rem;
-  margin: 0 auto;
+  width: 3rem;
+/*  margin: 0 auto;*/
   cursor: pointer;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+	border-radius: 50%;
+	width: 70px;
+	height: 70px;
+	
 }
 
 /*by setting the display to none here and block on hover further down, we achieve a drop-down on hover effect*/
@@ -126,6 +149,8 @@ canvas {
 /*we need to set the z-index as a number less than the dropdown or the search bar will appear on top of the dropdown*/
 #search-repo {
   z-index: 1;
+	border-radius: 0.8em;
+	border: 3px solid #50E3C2;
 }
 
 #add-button {
@@ -143,6 +168,11 @@ canvas {
   box-shadow:         5px 5px 5px 1px rgba(0, 0, 0, 0.4);
   border: 1px solid #CCC;
   font-weight: normal;
+	border-radius: 0.8em;
+	border: 3px solid #D001C4;
+
+
+	
 }
 
 .project-list-entry:hover {
@@ -152,6 +182,7 @@ canvas {
 
 .project-list-entry-title {
   font-weight: bold;
+  color: #2d2d2d;
 }
 
 .project-list-entry-detail {
@@ -168,6 +199,9 @@ canvas {
   width: 100%;
 }
 
+.repo-content {
+	color: white;
+}
 /*Project View ------------------------------------------------------------------*/
 /*
 I'll save you some google-time here:
@@ -176,15 +210,54 @@ em. 1em = the value of the font-size of the element on which it is applied. So i
 benefit: their scalability and you don't have to adjust the px value of everything if you want to scale up or down.
 */
 /*also, we used the same template for each of these sections for uniformity- it's nicer to look at*/
-.deliverables-section, .resources-section, .project-details, .chat-section, .drawCanvas-section,.project-list-header, .projects-section, #deliverables {
+.project-list-header, .projects-section, #deliverables, .deliverables-section, .resources-section, .chat-section, .drawCanvas-section {
   position: relative;
-  padding: 1.5rem;
-  border: .2rem solid #f7f7f9;
-  color: #292b2c;
-  background-color: #fff;
-  font-size: 1rem;
+  color: white;
   font-weight: 400;
   line-height: 1.5;
+	padding:10px;
+
+}
+
+.deliverables-section, .resources-section, .chat-section, .drawCanvas-section {
+ height: 680px;
+ padding:10px;
+ text-align: center;
+ align-content: center;
+
+}
+
+.resources-section, .chat-section, .drawCanvas-section {
+ height: 760px;
+ padding:10px;
+ text-align: center;
+ align-content: center;
+}
+
+/*dropdown part
+*/
+
+#deliverable-input-status1 {
+  border: 3px solid #4990E2;
+  border-radius: 0.8em;
+  text-align: center;
+}
+
+#deliverable-input-status2 {
+  border: 3px solid #D001C4;
+  border-radius: 0.8em;
+  text-align: center;
+}
+
+#deliverable-input-status3 {
+  border: 3px solid #50E3C2;
+  border-radius: 0.8em;
+  border-width: solid;
+}
+#deliverable-input-status4 {
+  border: 3px solid #F6A623;
+  border-radius: 0.8em;
+  border-width: solid;
 }
 
 /*any overflow will be contained within the container and not spill into the containers below, nor will it increase the size of the container*/
@@ -205,8 +278,17 @@ benefit: their scalability and you don't have to adjust the px value of everythi
   margin: 0 .5rem 0 0;
 }
 
-.project-view h1, .project-view h2, .project-view h3, .project-view h4, .project-view h5 {
+.project-view h2, .project-view h3, .project-view h5 {
+  color: white;
+  text-align: center;
+}
+
+.project-view h4, .project-view h1, {
   color: #2d2d2d;
+}
+
+p {
+	color: #2d2d2d;
 }
 
 /*Overwrite the default heading color we just chose since we're changing the background*/
@@ -229,23 +311,82 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 .deliverables-section::after, .resources-section::after, .project-list-header::after, .projects-section::after {
   display: block;
   clear: both;
+  text-align: center;
 }
 
-/*the video chat is hardcoded at 640px, so to keep the chat next to it the same height, we also hard code it to match*/
+th {
+	padding: 10px;
+	text-align: center;
+}
+
+
+
+#section1 {
+	border: 3px solid #4990E2;
+	height: 800px;
+	width: 700px;
+	border-radius: 2.0em;
+  text-align: center;
+	border-width: solid;
+	
+}
+
+#section2 {
+	border: 3px solid #D001C4;
+	height: 800px;
+	border-radius: 2.0em;
+  text-align: center;
+	border-width: solid;
+	width: 770px;
+	
+
+}
+
+#section3 {
+	border: 3px solid #50E3C2;
+	height: 800px;
+	border-radius: 2.0em;
+  border-width: solid;
+	width: 770px;
+
+}
+
+#section4 {
+	border: 3px solid #F6A623;
+	height: 800px;
+	border-radius: 2.0em;
+  border-width: solid;
+	width: 770px;
+
+
+}
+
+/*
+.chat-row {
+	height: 700px;
+	width: 610px;
+}
+*/
+
+/*the video chat is hardcoded at 700px, so to keep the chat next to it the same height, we also hard code it to match*/
+/*
 .chat-section {
   height: 640px;
+	text-align: center;
 }
 
 .drawCanvas-section {
   height: 640px;
+
+
 }
 .resources-section {
-  height: 100%;
-}
+  height: 640px;
 
-#deliverables {
-  padding: 0;
+
 }
+*/
+
 
 /*this actually centers the input fields and buttons*/
 #deliverableForm, #resourceForm {
@@ -270,14 +411,15 @@ benefit: their scalability and you don't have to adjust the px value of everythi
   padding: .5rem .5rem 0 .5rem;
 }
 
+
 /*Chat Room Styles ------------------------------------------------------------------*/
 /*this seemed to be the perfect balance so that the messages don't spill over and the input field remains near the bottom*/
 .messages {
-  min-height: 460px;
+  min-height: 600px;
   overflow-y: scroll;
   word-wrap: break-word;
   padding: 0 1em;
-  max-height: 460px;
+  max-height: 600px;
 }
 
 .message {
@@ -286,11 +428,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 .messageUser {
   display: inline-block;
-  float: left;
 }
 
 .messageDate {
-  float: left;
   color: grey;
   font-style: italic;
   font-size: 13px;
@@ -300,6 +440,7 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 .messageText {
   display: inline;
   margin-top: 1.5em;
+  text-align: left;
 }
 
 /*Add Repo Styles ------------------------------------------------------------------*/
@@ -311,7 +452,7 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 .repoNamebar {
   margin: 1px 16px;
   padding: 3px;
-  background: #fff;
+  background: #01061A;
   font-size: 1em;
   cursor: pointer;
 }
@@ -325,9 +466,9 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 
 .repo-nav {
   font-family: Rubik;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 500;
-  color: black;
+  color: white;
 }
 
 .repo-nav:hover {
@@ -336,14 +477,10 @@ benefit: their scalability and you don't have to adjust the px value of everythi
 }
 
 .delete {
-  font-size: 25px;
-  border-radius: .25em;
-}
-
-.deleteBar {
-  display: inline-block;
-  float: right;
-  margin-top: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: #01061A;
+  border-color: #01061A;
 }
 
 a.repoNav {
@@ -351,7 +488,6 @@ a.repoNav {
 }
 
 .delete:hover {
-  background-color: red;
   color: white;
   cursor: pointer;
 }
@@ -428,6 +564,7 @@ a.repoNav {
   float: left;
   margin: 0 5px;
   height: 90px;
+	border-radius: 50%;
 }
 
 .profiles .description {
@@ -446,7 +583,17 @@ a.repoNav {
   font-size: 20px;
   font-weight: 600;
 }
+/*
 
+.wrapper {
+	height: 800px;
+}
+*/
+
+
+.navbar-header {
+	margin-left: 20px;
+}
 
 /*Breakpoints (for responsive design) ------------------------------------------------------------------*/
 

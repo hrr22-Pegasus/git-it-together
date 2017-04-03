@@ -30,9 +30,9 @@ const renderSection = (section, props) => {
       return (<div className="resources-section">
                 <h2>Resources</h2>
                 <hr />
-                <Resource.Form projectid={project.id} user={profile.nickname} room={project.name} />
-                <hr />
                 <Resource.List project={project} />
+                <hr />
+                <Resource.Form projectid={project.id} user={profile.nickname} room={project.name} />
               </div>);
     } else if (section === 'Schedule') {
       return (<div className="chat-section">
@@ -65,95 +65,97 @@ class Project extends Component {
       <div className="container-fluid">
         <div className="project-view">
           <div className="row">
-            <div className="col project-details">
-              <a className="repo-nav" target="_blank" href={'https://github.com/' + project.owner + '/' + project.name.replace(/ /g, '-').toLowerCase()}>{project.name}</a>
-              <div className="deleteBar">
-              <button type="submit" className="delete" onClick={() => deleteProject(project.id)}><i className="fa fa-trash"></i></button>
+							<div className="col-sm-9 project-section">
+                <a className="repo-nav" target="_blank" href={'https://github.com/' + project.owner + '/' + project.name.replace(/ /g, '-').toLowerCase()}>{project.name}</a>
+                &nbsp;<button type="submit" className="delete"  onClick={() => deleteProject(project.id)}><i className="fa fa-trash"></i></button>
+                <hr />
+                <p className="repo-content">{project.description}</p>
               </div>
-              <hr />
-              <p className="repo-content">{project.description}</p>
-            </div>
+							<div className=".col-sm-4 devider-section">
+                <table>
+                  <tr>
+    							<th><select className="custom-select text-center" id="deliverable-input-status1"
+                    onChange={(event) =>
+                      this.setState({upperLeft: event.target.value},
+                        function () {
+                          this.setState({upperLeftResult: renderSection(this.state.upperLeft, this.props)})
+                        })
+                    }>
+    									<option value="AppearIn">AppearIn</option>
+    									<option value="ChatApp">ChatApp</option>
+    									<option value="DrawCanvas">DrawCanvas</option>
+    									<option value="Deliverables">Deliverables</option>
+    									<option value="Resources">Resources</option>
+    									<option value="Schedule">Schedule</option>
+    							</select></th>
+    								<th><select className="custom-select text-center" id="deliverable-input-status2"
+                    onChange={(event) =>
+                      this.setState({upperRight: event.target.value},
+                        function () {
+                          this.setState({upperRightResult: renderSection(this.state.upperRight, this.props)})
+                        })
+                    }>
+                    <option value="AppearIn">AppearIn</option>
+                    <option value="ChatApp">ChatApp</option>
+                    <option value="DrawCanvas">DrawCanvas</option>
+                    <option value="Deliverables">Deliverables</option>
+                    <option value="Resources">Resources</option>
+                    <option value="Schedule">Schedule</option>
+                  </select></th>
+                  </tr>
+							    <tr>
+    							<th><select className="custom-select text-center" id="deliverable-input-status3"
+                    onChange={(event) =>
+                      this.setState({bottomLeft: event.target.value},
+                        function () {
+                          this.setState({bottomLeftResult: renderSection(this.state.bottomLeft, this.props)})
+                        })
+                    }>
+                    <option value="AppearIn">AppearIn</option>
+                    <option value="ChatApp">ChatApp</option>
+                    <option value="DrawCanvas">DrawCanvas</option>
+                    <option value="Deliverables">Deliverables</option>
+                    <option value="Resources">Resources</option>
+                    <option value="Schedule">Schedule</option>
+                  </select></th>
+								
+    							<th><select className="custom-select text-center" id="deliverable-input-status4"
+                    onChange={(event) =>
+                      this.setState({bottomRight: event.target.value},
+                        function () {
+                          this.setState({bottomRightResult: renderSection(this.state.bottomRight, this.props)})
+                        })
+                    }>
+                    <option value="AppearIn">AppearIn</option>
+                    <option value="ChatApp">ChatApp</option>
+                    <option value="DrawCanvas">DrawCanvas</option>
+                    <option value="Deliverables">Deliverables</option>
+                    <option value="Resources">Resources</option>
+                    <option value="Schedule">Schedule</option>
+                  </select></th>
+                </tr>
+              </table>
           </div>
-          <div className="row deliverables-row">
-            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left">
-              <label className="sr-only" htmlFor="deliverable-input-status">Sections</label>
-              <select className="custom-select text-center" id="deliverable-input-status"
-                onChange={(event) =>
-                  this.setState({upperLeft: event.target.value},
-                    function () {
-                      this.setState({upperLeftResult: renderSection(this.state.upperLeft, this.props)})
-                    })
-                }>
-                <option value="AppearIn">AppearIn</option>
-                <option value="ChatApp">ChatApp</option>
-                <option value="DrawCanvas">DrawCanvas</option>
-                <option value="Deliverables">Deliverables</option>
-                <option value="Resources">Resources</option>
-                <option value="Schedule">Schedule</option>
-              </select>
+          <div className="col-sm-12 row chat-row">
+            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left" id="section1">
               {this.state.upperLeftResult}
             </div>
-            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-right">
-              <label className="sr-only" htmlFor="deliverable-input-status">Sections</label>
-              <select className="custom-select text-center" id="deliverable-input-status"
-                onChange={(event) =>
-                  this.setState({upperRight: event.target.value},
-                    function () {
-                      this.setState({upperRightResult: renderSection(this.state.upperRight, this.props)})
-                    })
-                }>
-                <option value="AppearIn">AppearIn</option>
-                <option value="ChatApp">ChatApp</option>
-                <option value="DrawCanvas">DrawCanvas</option>
-                <option value="Deliverables">Deliverables</option>
-                <option value="Resources">Resources</option>
-                <option value="Schedule">Schedule</option>
-              </select>
+            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-right" id="section2">
               {this.state.upperRightResult}
             </div>
           </div>
-          <div className="row chat-row">
-            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left">
-              <label className="sr-only" htmlFor="deliverable-input-status">Sections</label>
-              <select className="custom-select text-center" id="deliverable-input-status"
-                onChange={(event) =>
-                  this.setState({bottomLeft: event.target.value},
-                    function () {
-                      this.setState({bottomLeftResult: renderSection(this.state.bottomLeft, this.props)})
-                    })
-                }>
-                <option value="AppearIn">AppearIn</option>
-                <option value="ChatApp">ChatApp</option>
-                <option value="DrawCanvas">DrawCanvas</option>
-                <option value="Deliverables">Deliverables</option>
-                <option value="Resources">Resources</option>
-                <option value="Schedule">Schedule</option>
-              </select>
+          <div className="col-sm-12 row chat-row">
+            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left" id="section3">
               {this.state.bottomLeftResult}
-
             </div>
-            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-right">
-              <label className="sr-only" htmlFor="deliverable-input-status">Sections</label>
-              <select className="custom-select text-center" id="deliverable-input-status"
-                onChange={(event) =>
-                  this.setState({bottomRight: event.target.value},
-                    function () {
-                      this.setState({bottomRightResult: renderSection(this.state.bottomRight, this.props)})
-                    })
-                }>
-                <option value="AppearIn">AppearIn</option>
-                <option value="ChatApp">ChatApp</option>
-                <option value="DrawCanvas">DrawCanvas</option>
-                <option value="Deliverables">Deliverables</option>
-                <option value="Resources">Resources</option>
-                <option value="Schedule">Schedule</option>
-              </select>
+            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component text-center project-view-component-right" id="section4">
               {this.state.bottomRightResult}
             </div>
 
           </div>
         </div>
       </div>
+    </div>
     );
 
   }
