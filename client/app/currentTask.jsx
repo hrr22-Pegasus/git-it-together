@@ -6,8 +6,15 @@ import { ItemTypes } from './itemTypes';
 
 const currentTaskTarget = {
   drop(props, monitor) {
-    // logic for updating the deliverables status
-    console.log('dropped props', props, 'dropped monitor', monitor);
+
+    const currentDeliverable = monitor.getItem().currentDeliverable;
+    const newDeliverable = JSON.parse(JSON.stringify(currentDeliverable));
+    newDeliverable.status = 'current';
+
+    props.deliverables.push(newDeliverable);
+
+    // monitor.getItem().updateDeliverableStatus(currentDeliverable, newDeliverable);
+
   }
 }
 
@@ -29,10 +36,16 @@ class CurrentTasks extends Component {
   }
 
   moveDeliverable(dragIndex, hoverIndex) {
-    const { deliverables } = this.state;
-    const { dragDeliverable } = deliverables[dragIndex];
-    console.log('moveDeliverable is called');
-    console.log(this);
+    let context = this;
+    const deliverables = this.state.deliverables;
+    const dragDeliverable = deliverables[dragIndex];
+    //console.log(deliverables);
+    //console.log('state', this.state);
+    //console.log('state deliverables', this.state.deliverables);
+    //console.log('dragDeliverable is ', dragDeliverable);
+    // const testDeliverable = this.state.deliverables[1];
+    // console.log('test deliverable', testDeliverable);
+    //console.log('dragIndex is called', deliverables);
     this.setState(update(this.state, {
       deliverables: {
         $splice: [
@@ -41,13 +54,14 @@ class CurrentTasks extends Component {
         ]
       }
     }));
+    context.forceUpdate();
   }
 
   render() {
-    console.log('state in currentTask', this.state);
     const {
       connectDropTarget,
       isOver,
+      updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
     const { deliverables } = this.state;
@@ -70,7 +84,7 @@ class CurrentTasks extends Component {
             </thead>
             <tbody>
               {deliverables.map((deliverable, index) =>
-                <Deliverable deliverable={deliverable} index={index} id={deliverable.id} deleteDeliverable={deleteDeliverable.bind(this)} moveDeliverable={this.moveDeliverable} />
+                <Deliverable deliverable={deliverable} index={index} id={deliverable.id} deleteDeliverable={deleteDeliverable.bind(this)} moveDeliverable={this.moveDeliverable.bind(this)} updateDeliverableStatus={updateDeliverableStatus.bind(this)}/>
               )}
             </tbody>
           </table>

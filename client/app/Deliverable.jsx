@@ -147,14 +147,37 @@ class List extends React.Component {
         } else if (deliverable.status === 'icebox') {
           deliverables.icebox.push(deliverable);
         } else if (deliverable.status === 'current') {
-
-
-
           deliverables.current.push(deliverable);
         }
       });
       context.forceUpdate();
     });
+  }
+
+  updateDeliverableStatus(currentDeliverable, newDeliverable) {
+    // const context = this.context;
+    // const postNewStatus = (newDeliverable, context) => {
+    //   axios.post('/api/deliverables', {
+    //     projectID: newDeliverable.id,
+    //     task: newDeliverable.task,
+    //     owner: newDeliverable.owner,
+    //     points: newDeliverable.points,
+    //     status: newDeliverable.status,
+    //     startDate: newDeliverable.startDate._d,
+    //     dueDate: newDeliverable.dueDate
+    //   }).then(function(response) {
+    //     console.log('posted updated deliverable');
+    //     socket.emit('change', 'post');
+    //     context.getDeliverables();
+    //   });
+    // }
+
+    // this.deleteDeliverable(currentDeliverable.id, postNewStatus, newDeliverable, context)
+
+    // axios.post('/api/deliverables/test')
+    //   .then((response) => {
+    //     socket.emit('change', 'update');
+    //   })
   }
 
   deleteDeliverable(deliverableID) {
@@ -173,10 +196,10 @@ class List extends React.Component {
     } else {
       return (
         <div id="deliverables">
-          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
-          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
-          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
-          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable.bind(this)}/>
+          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
+          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
+          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
+          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
         </div>
       );
     }

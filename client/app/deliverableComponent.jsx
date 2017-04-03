@@ -6,10 +6,13 @@ import flow from 'lodash/flow';
 
 const deliverableSource = {
   beginDrag(props) {
-    console.log('props from devSource', props);
-    console.log('index', props.index, 'id', props.id)
+    //console.log('state from devSource', this.state);
+    //console.log('props', props, 'id', props.id)
+    //this.state.deliverables.splice(props.index, 1);
     return {
       id: props.id,
+      currentDeliverable: props.deliverable,
+      updateDeliverableStatus: props.updateDeliverableStatus,
       index: props.index
     };
   }
@@ -55,7 +58,7 @@ function collect(connect, monitor) {
     isDragging: monitor.isDragging()
   }
 }
-
+//
 class Deliverable extends Component {
 
 
@@ -65,8 +68,10 @@ class Deliverable extends Component {
       connectDropTarget,
       isDragging,
       deliverable,
+      updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
+    //console.log('updateDeliverableStatus',updateDeliverableStatus);
     return connectDragSource(connectDropTarget(
       <tr>
         <th scope="row">{deliverable.id}</th>

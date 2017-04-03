@@ -163,6 +163,24 @@ exports.deleteDeliverable = (req, res) => {
   });
 };
 
+// exports.updateDeliverableStatus = (req, res) => {
+//   // const newStatus = req.query.status;
+//   console.log(req.query)
+//   db.Deliverable.find({where: {id: req.query.id}})
+//   .on('success', (deliverable) => {
+//     console.log('deliverable from put request outside if', deliverable);
+//     if (deliverable) {
+//       console.log('deliverable from put request', deliverable);
+//       deliverable.updateAttributes({
+//         status: 'icebox'
+//       }).success(() => console.log('it worked'))
+//     } else {
+//       console.log('newStatus from req-handles', newStatus);
+//     }
+//     res.status(200).send();
+//   });
+// };
+
 exports.listDeliverables = (req, res) => {
   db.Deliverable.findAll({where: {project_id: req.query.id}, raw: true})
     .then((deliverables) => {
