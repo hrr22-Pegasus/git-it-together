@@ -20,6 +20,7 @@ body {
 
 .col {
   padding: 0;
+	font-family: 'Press Start 2P', cursive;
 }
 
 textarea:focus, input:focus {
@@ -33,6 +34,7 @@ button {
   border-width: solid;
 	background-color: #01061A;
 	color: white;
+	font-family: 'Press Start 2P', cursive;
 }
 
 a {
@@ -144,6 +146,9 @@ canvas {
 }
 .search-repos {
   width: 100%;
+	font-family: 'Source Code Pro', monospace;
+	color: white;
+
 }
 
 /*we need to set the z-index as a number less than the dropdown or the search bar will appear on top of the dropdown*/
@@ -151,6 +156,10 @@ canvas {
   z-index: 1;
 	border-radius: 0.8em;
 	border: 3px solid #50E3C2;
+	font-family: 'Source Code Pro', monospace;
+	color: white;
+	background-color: #01061A;
+
 }
 
 #add-button {
@@ -160,7 +169,6 @@ canvas {
 .project-list-entry {
   padding: 7px 10px;
   margin: 15px 5px;
-  background: #fff;
   font-size: 1em;
   line-height: 1.3em;
   -moz-box-shadow:    5px 5px 5px 1px rgba(0, 0, 0, 0.4);
@@ -170,6 +178,9 @@ canvas {
   font-weight: normal;
 	border-radius: 0.8em;
 	border: 3px solid #D001C4;
+	font-family: 'Source Code Pro', monospace;
+  background-color: #01061A;
+	color: white;
 
 
 	
@@ -182,12 +193,20 @@ canvas {
 
 .project-list-entry-title {
   font-weight: bold;
-  color: #2d2d2d;
+	font-family: 'Source Code Pro', monospace;
+	background-color: #01061A;
+	color: white;
+
+
 }
 
 .project-list-entry-detail {
   font-size: 12px;
-  color: #2d2d2d;
+	font-family: 'Source Code Pro', monospace;
+	background-color: #01061A;
+	color: white;
+
+
 }
 
 .right {
@@ -201,7 +220,16 @@ canvas {
 
 .repo-content {
 	color: white;
+	font-family: 'Source Code Pro', monospace;
+
 }
+
+.custom-select {
+	font-family: 'Source Code Pro', monospace;
+	background-color: #01061A;
+	color: white;
+}
+
 /*Project View ------------------------------------------------------------------*/
 /*
 I'll save you some google-time here:
@@ -465,7 +493,7 @@ th {
 }
 
 .repo-nav {
-  font-family: Rubik;
+	font-family: 'Press Start 2P', cursive;
   font-size: 20px;
   font-weight: 500;
   color: white;
