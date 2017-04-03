@@ -1,24 +1,24 @@
 import React from 'react';
 
 var Nav = ({profile, logout, handleProjectListEntryClick, current}) => (
-  <div class="container-fluid">
-    <div class="col-sm-10 project-section">
-      <button className='goback' font-size="30px" onClick={() => handleProjectListEntryClick(null)} >◁</button>
-    </div>
-    <div class="col-sm-2 project-section">
-        <img src="/client/assets/unicorn-head-silhouette.png" className="navbar-brand dropdown" alt="unicorn head"/>
-          <card className="card dropdown-content">
-            <card className="card-block">
-              <h4 className="card-title">{profile.name}</h4>
-              <p className="caption">
+  <nav className='navbar navbar-light bg-faded'>
+    <div className='navbar-header'>
+      <div className="dropdown">
+        <img src="/client/assets/unicorn-head-silhouette.png" className="nav-right navbar-brand dropdown" alt="unicorn head" onClick={() => handleProjectListEntryClick(null)}/>
+        <div className="card dropdown-content">
+          {/* <img className="card-img-top" src={profile.picture} alt="profile picture" /> */}
+          <div className="card-block">
+            <h4 className="card-title">{profile.name}</h4>
+            <p className="caption">
               <small>{profile.nickname}</small>
-              </p>
-              <hr/>
-              <button onClick={logout} className="btn btn-primary">Sign Out</button>
-            </card>
-          </card>
+            </p>
+            <hr/>
+            <button onClick={logout} className="btn btn-primary">Sign Out</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </nav>
 );
 
 module.exports = Nav;

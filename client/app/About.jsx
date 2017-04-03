@@ -5,7 +5,7 @@ import React from 'react';
 var About = () => (
   <div className="container-fluid our-team">
 
-  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  <button type="button" data-toggle="modal" data-target="#myModal">
     Our Team
   </button>
 

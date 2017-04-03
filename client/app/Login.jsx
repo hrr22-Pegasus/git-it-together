@@ -21,7 +21,7 @@ export class Login extends React.Component {
             </div>
             <div className="w-100"></div>
             <div className="col">
-              <button className="btn btn-primary" onClick={auth.login.bind(this)}>Login</button>
+              <button onClick={auth.login.bind(this)}>Login</button>
             </div>
           </div>
         </div>

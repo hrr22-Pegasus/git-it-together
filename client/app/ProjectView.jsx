@@ -64,9 +64,9 @@ class Project extends Component {
       <div className="container-fluid">
         <div className="project-view">
           <div className="row">
-							<div className="col-sm-8 project-section">
+							<div className="col-sm-9 project-section">
                 <a className="repo-nav" target="_blank" href={'https://github.com/' + project.owner + '/' + project.name.replace(/ /g, '-').toLowerCase()}>{project.name}</a>
-                &nbsp;<button type="submit" className="delete" onClick={() => deleteProject(project.id)}><i className="fa fa-trash"></i></button>
+                &nbsp;<button type="submit" className="delete"  onClick={() => deleteProject(project.id)}><i className="fa fa-trash"></i></button>
                 <hr />
                 <p className="repo-content">{project.description}</p>
               </div>
@@ -147,7 +147,7 @@ class Project extends Component {
             <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-left" id="section3">
               {this.state.bottomLeftResult}
             </div>
-            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component project-view-component-right" id="section4">
+            <div className="col-xs-12 col-sm-12 col-lg-6 project-view-component text-center project-view-component-right" id="section4">
               {this.state.bottomRightResult}
             </div>
 

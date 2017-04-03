@@ -1,79 +1,6 @@
 import React from 'react';
 var socket = io.connect('/io/resources');
 
-
-
-class List extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {project: props.project, resources: null};
-    this.getResources();
-    this.scrollElement();
-  }
-
-  getResources() {
-    var context = this;
-    var project = this.state.project;
-    axios.get('/api/resources?id=' + project.id)
-    .then(function(response) {
-      context.state.resources = response.data;
-      context.forceUpdate();
-    });
-  }
-	
-  deleteResource(resourceID) {
-    axios.delete('/api/resources?id=' + resourceID)
-    .then(function(response) {
-      // Tell other clients a change occured
-      socket.emit('change', 'delete');
-    });
-  }
-
-  //This keeps the scroll in the chatroom at the bottom
-  scrollElement() {
-    var context = this;
-    //Use setTimeout to place this at the bottom of the stack
-    setTimeout(() => {
-      window.requestAnimationFrame(() => {
-        var node = ReactDom.findDOMNode(context);
-        if (node !== undefined) {
-          node.scrollTop = node.scrollHeight;
-        }
-      });
-    }, 0);
-  }
-
-
-  render() {
-    if (this.state.resources === null) {
-      return (
-        <div><i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>
-      );
-    } else {
-      return (
-        <div className="resources-section-body">
-          {this.state.resources.map((resource) =>
-            <Resource resource={resource} deleteResource={this.deleteResource.bind(this)} />
-          )}
-        </div>
-      );
-    }
-  }
-
-
-};
-
-var Resource = ({resource, deleteResource}) => (
-  <div className = "resource">
-    <i className="fa fa-external-link"></i>
-    {resource.user}:
-    <a className="resourceName" target="_blank" href={resource.link}>{resource.name}</a>
-    ({resource.category})
-    <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
-  </div>
-);
-
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -95,12 +22,12 @@ class Form extends React.Component {
         name: this.state.name,
         link: this.state.url,
         user: this.state.user,
-        category: this.state.category
+				category: this.state.category
       }).then(function(response) {
         socket.emit('change', 'post');
       });
 
-      this.setState({name: null, url: null, category: null});
+      this.setState({name: null, url: null});
       document.getElementById('resourceForm').reset();
       $('#resourceForm').css('border', 'none');
     } else {
@@ -121,9 +48,9 @@ class Form extends React.Component {
           <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-url" placeholder="Url"
             onChange={(event) => this.setState({url: event.target.value})} />
         </div>
-        <div className="col-12">
-          <label className="sr-only" htmlFor="resource-input-url">Resource Category</label>
-          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="Cateogry"
+				<div className="col-12">
+          <label className="sr-only" htmlFor="resource-input-category">Resource Category</label>
+          <input type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="resource-input-category" placeholder="Category"
             onChange={(event) => this.setState({category: event.target.value})} />
         </div>
         <div className="col-12">
@@ -133,6 +60,64 @@ class Form extends React.Component {
     );
   }
 };
+
+class List extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {project: props.project, resources: null};
+
+    this.getResources();
+  }
+
+  componentDidMount() {
+    // Listen for a call to rerender the list
+    socket.on('reload', this.getResources.bind(this));
+  }
+
+  getResources() {
+    var context = this;
+    var project = this.state.project;
+    axios.get('/api/resources?id=' + project.id)
+    .then(function(response) {
+      context.state.resources = response.data;
+      context.forceUpdate();
+    });
+  }
+
+  deleteResource(resourceID) {
+    axios.delete('/api/resources?id=' + resourceID)
+    .then(function(response) {
+      // Tell other clients a change occured
+      socket.emit('change', 'delete');
+    });
+  }
+
+  render() {
+    if (this.state.resources === null) {
+      return (
+        <div><i className="fa fa-spinner fa-pulse fa-5x fa-fw"></i></div>
+      );
+    } else {
+      return (
+        <div id="resources">
+          {this.state.resources.map((resource) =>
+            <Resource resource={resource} deleteResource={this.deleteResource.bind(this)} />
+          )}
+        </div>
+      );
+    }
+  }
+};
+
+var Resource = ({resource, deleteResource}) => (
+  <div className = "resource">
+    <i className="fa fa-external-link"></i>
+    {resource.user}:
+    <a className="resourceName" target="_blank" href={resource.link}>{resource.name}</a>
+		{resource.category}
+    <i className="fa fa-times deleteResource" aria-hidden="true" onClick={() => deleteResource(resource.id)}></i>
+  </div>
+);
 
 exports.Form = Form;
 exports.List = List;
