@@ -73,8 +73,6 @@ class Schedule extends React.Component {
     });
   }
 
-
-
   render(){
     return (
       <BigCalendar
