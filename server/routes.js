@@ -13,4 +13,8 @@ module.exports = function (app, express) {
   app.get('/api/deliverables', requestHandler.listDeliverables);
   app.post('/api/listRepos', requestHandler.listRepos);
   app.delete('/api/projectList', requestHandler.deleteUserProject)
+  // app.post('api/deliverables/test', (req, res) => {
+  //   console.log('reached router');
+  //   requestHandler.updateDeliverableStatus
+  // });
 };

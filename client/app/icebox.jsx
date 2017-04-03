@@ -1,12 +1,19 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
+import update from 'react/lib/update';
 import Deliverable from './deliverableComponent.jsx';
 import { ItemTypes } from './itemTypes';
 
 const iceboxTarget = {
   drop(props, monitor) {
-    // logic for updating the deliverables status
-    console.log('dropped props', props);
+
+    const currentDeliverable = monitor.getItem().currentDeliverable;
+    const newDeliverable = JSON.parse(JSON.stringify(currentDeliverable));
+    newDeliverable.status = 'icebox';
+
+    // monitor.getItem().updateDeliverableStatus(currentDeliverable, newDeliverable);
+    props.deliverables.push(newDeliverable);
+
   }
 }
 
@@ -20,18 +27,36 @@ function collect(connect, monitor) {
 class Icebox extends Component {
   constructor(props) {
     super(props);
-    this.deliverables = props.deliverables;
     this.deleteDeliverable = props.deleteDeliverable;
+    this.moveDeliverable = this.moveDeliverable.bind(this);
+    this.state ={
+      deliverables: props.deliverables
+    }
     // this.connectDropTarget = connectDropTarget;
     // this.isOver = isOver;
+  }
+  moveDeliverable(dragIndex, hoverIndex) {
+    let context = this;
+    const deliverables = this.state.deliverables;
+    const dragDeliverable = deliverables[dragIndex];
+    this.setState(update(this.state, {
+      deliverables: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragDeliverable]
+        ]
+      }
+    }));
+    context.forceUpdate();
   }
   render() {
     const {
       connectDropTarget,
       isOver,
-      deliverables,
+      updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
+    const { deliverables } = this.state;
     return connectDropTarget(
       <div>
         <div className="deliverables-section-header">
@@ -49,9 +74,9 @@ class Icebox extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.deliverables.map((deliverable) =>
-                  <Deliverable deliverable={deliverable} deleteDeliverable={this.deleteDeliverable.bind(this)} />
-                )}
+                {deliverables.map((deliverable, index) =>
+                <Deliverable deliverable={deliverable} index={index} id={deliverable.id} deleteDeliverable={deleteDeliverable.bind(this)} moveDeliverable={this.moveDeliverable.bind(this)} updateDeliverableStatus={updateDeliverableStatus.bind(this)}/>
+              )}
               </tbody>
             </table>
           </div>
@@ -65,4 +90,5 @@ Icebox.PropTypes = {
   deliverables: PropTypes.object.isRequired,
   deleteDeliverable: PropTypes.func.isRequired
 };
+//render
 export default DropTarget(ItemTypes.DELIVERABLE, iceboxTarget, collect)(Icebox);
