@@ -13,7 +13,7 @@
     "quick": "npm run build && npm start"
   },
 	"engines": {
-    "node": ">=4.0.0"
+    "node": "^6.10.1"
   },
   "repository": {
     "type": "git",
