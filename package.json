@@ -12,6 +12,9 @@
     "heroku-postbuild": "node_modules/.bin/webpack -p --config webpack.config.js",
     "quick": "npm run build && npm start"
   },
+	"engines": {
+    "node": ">=4.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HRR22-Lyra/git-it-together.git"
