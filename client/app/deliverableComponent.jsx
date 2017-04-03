@@ -6,12 +6,10 @@ import flow from 'lodash/flow';
 
 const deliverableSource = {
   beginDrag(props) {
-    //console.log('state from devSource', this.state);
-    //console.log('props', props, 'id', props.id)
-    //this.state.deliverables.splice(props.index, 1);
     return {
       id: props.id,
       currentDeliverable: props.deliverable,
+      removeCard: props.removeCard,
       updateDeliverableStatus: props.updateDeliverableStatus,
       index: props.index
     };
@@ -21,9 +19,6 @@ const deliverableSource = {
 
 const deliverableTarget = {
   hover(props, monitor, component) {
-    console.log('hover devComp', props)
-    console.log('hover component', component)
-    console.log('hover monitor', monitor.getItem());
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
     // Don't replace items with themselves
@@ -71,7 +66,6 @@ class Deliverable extends Component {
       updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
-    //console.log('updateDeliverableStatus',updateDeliverableStatus);
     return connectDragSource(connectDropTarget(
       <tr>
         <th scope="row">{deliverable.id}</th>
@@ -91,21 +85,8 @@ Deliverable.PropTypes = {
   deliverable: PropTypes.object.isRequired,
   deleteDeliverable: PropTypes.func.isRequired
 };
-// const Deliverable = ({deliverable, deleteDeliverable}) => (
-//   <tr>
-//     <th scope="row">{deliverable.id}</th>
-//     <td>{deliverable.task}</td>
-//     <td>{deliverable.owner}</td>
-//     <td>{deliverable.points}</td>
-//     <td><i className="fa fa-times right" aria-hidden="true" onClick={() => deleteDeliverable(deliverable.id)}></i></td>
-//   </tr>
-// );
-// exports.Deliverable = Deliverable;
-// exports.deliverableSource = deliverableSource;
+
 export default flow(
   DragSource(ItemTypes.DELIVERABLE, deliverableSource, collect),
   DropTarget(ItemTypes.DELIVERABLE, deliverableTarget, connect => ({connectDropTarget: connect.dropTarget()}))
   )(Deliverable);
-
-
-

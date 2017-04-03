@@ -1,8 +1,6 @@
 // Resources http://beatscodeandlife.ghost.io/react-socket-io-part-i-real-time-chat-application/
 // http://danialk.github.io/blog/2013/06/16/reactjs-and-socket-dot-io-chat-application/
 
-// Insert into outer componenet to render:   <ChatApp user={this.state.profile.nickname} room={this.state.}></ChatApp>
-
 //TO DO: Set limit on number of messages to display
 
 import React from 'react';
