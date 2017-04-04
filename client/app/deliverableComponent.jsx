@@ -6,13 +6,24 @@ import flow from 'lodash/flow';
 
 const deliverableSource = {
   beginDrag(props) {
+    console.log(props.sectionId);
     return {
-      id: props.id,
+      sectionId: props.sectionId,
       currentDeliverable: props.deliverable,
-      removeCard: props.removeCard,
+      removeDeliverable: props.removeDeliverable,
       updateDeliverableStatus: props.updateDeliverableStatus,
       index: props.index
     };
+  },
+  endDrag(props, monitor) {
+    console.log('endDrag ran');
+    const item = monitor.getItem();
+    const dropResult = monitor.getDropResult();
+    console.log(item);
+    console.log(dropResult);
+    if(dropResult && dropResult.sectionId !== item.sectionId) {
+      props.removeDeliverable(item.index)
+    }
   }
 
 };
@@ -21,6 +32,7 @@ const deliverableTarget = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
+    const sourceId = monitor.getItem().sectionId;
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
       return;
@@ -41,10 +53,12 @@ const deliverableTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-    // Time to actually perform the action
-    props.moveDeliverable(dragIndex, hoverIndex);
-    monitor.getItem().index = hoverIndex;
-  },
+    if (props.sectionId === sourceId) {
+      // Time to actually perform the action
+      props.moveDeliverable(dragIndex, hoverIndex);
+      monitor.getItem().index = hoverIndex;
+    }
+  }
 };
 
 function collect(connect, monitor) {

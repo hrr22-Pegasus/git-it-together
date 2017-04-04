@@ -5,15 +5,24 @@ import Deliverable from './deliverableComponent.jsx';
 import { ItemTypes } from './itemTypes';
 
 const backlogTarget = {
-  drop(props, monitor) {
+  drop(props, monitor, component) {
 
-    const currentDeliverable = monitor.getItem().currentDeliverable;
-    const newDeliverable = JSON.parse(JSON.stringify(currentDeliverable));
-    newDeliverable.status = 'backlog';
+    const id = props.sectionId;
+    const sourceObj = monitor.getItem();
+    if (id !== sourceObj.sectionId) {
+      component.pushDeliverable(sourceObj.currentDeliverable);
+    }
+    return {
+      sectionId: id
+    }
 
-    // code to call the update function after a deliverable has been dropped into a new container
-    // monitor.getItem().updateDeliverableStatus(currentDeliverable, newDeliverable);
-    props.deliverables.push(newDeliverable);
+    // const currentDeliverable = monitor.getItem().currentDeliverable;
+    // const newDeliverable = JSON.parse(JSON.stringify(currentDeliverable));
+    // newDeliverable.status = 'complete';
+
+    // // code to call the update function after a deliverable has been dropped into a new container
+    // // monitor.getItem().updateDeliverableStatus(currentDeliverable, newDeliverable);
+    // props.deliverables.push(newDeliverable);
 
   }
 }
@@ -21,7 +30,8 @@ const backlogTarget = {
 function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
   };
 }
 
@@ -70,6 +80,7 @@ class Backlog extends Component {
     const {
       connectDropTarget,
       isOver,
+      canDrop,
       updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
@@ -96,6 +107,7 @@ class Backlog extends Component {
                 deliverable={deliverable}
                 index={index}
                 id={deliverable.id}
+                sectionId={this.props.sectionId}
                 pushDeliverable={this.pushDeliverable.bind(this)}
                 removeDeliverable={this.removeDeliverable.bind(this)}
                 deleteDeliverable={deleteDeliverable.bind(this)}

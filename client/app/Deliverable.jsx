@@ -196,10 +196,26 @@ class List extends React.Component {
     } else {
       return (
         <div id="deliverables">
-          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
-          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
-          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
-          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
+          <CurrentTasks
+            deliverables={this.state.deliverables.current}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={1}/>
+          <Backlog
+            deliverables={this.state.deliverables.backlog}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={2}/>
+          <Icebox
+            deliverables={this.state.deliverables.icebox}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={3}/>
+          <CompletedTasks
+            deliverables={this.state.deliverables.complete}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={4}/>
         </div>
       );
     }
