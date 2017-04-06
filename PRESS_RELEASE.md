@@ -21,7 +21,7 @@ Once the project moves into development, the press release can be used as a touc
   > Software developers interested in managing their Git Hub projects in an AGILE/SCRUM-friendly environment.
 
 ## Summary ##
-  > Git It Together allows developers to add Git Hub repositories to a central location as a reference point for all the developers working on that project. Within the project view, you will find a quick synopsis of the project -- the "vision", a deliverables section wherein the current sprint, backlog, icebox, and completed sprints are located, a resources section containing resources found while working on that project that are relevant and helpful to the completion of the project, and a chat section featuring appear.in and a live messenger with data-persistence.
+  > Git It Together allows developers to add Git Hub repositories to a central location as a reference point for all the developers working on that project. Within the project view, you will find a quick synopsis of the project -- the "vision", a deliverables section wherein the current sprint, backlog, icebox, and completed sprints are located, a resources section containing resources found while working on that project that are relevant and helpful to the completion of the project, and a chat section featuring appear.in and a live messenger with data-persistence. 
 
 ## Problem ##
   > The current problem with project development is managing the project. One team might use an instant messaging system, Git Hub, AGILE/SCRUM task board, and browser bookmarks to complete a project but that leaves 15 tabs open in the browser and four open applications.
@@ -43,7 +43,7 @@ Once the project moves into development, the press release can be used as a touc
   > 4. Enjoy!
 
 ## What the Customers are Saying ##
-  > "I konw my best designs always Git It Together. I wouldn't use anything else!"
+  > "I know my best designs always Git It Together. I wouldn't use anything else!"
 
 ## Next Steps ##
   > What're you waiting for? Start managing projects now!
