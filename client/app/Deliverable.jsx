@@ -9,8 +9,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 require('react-datepicker/dist/react-datepicker.css');
-//import { DragDropContext } from 'react-dnd';
-//import HTML5Backend from 'react-dnd-html5-backend';
+
 
 var socket = io.connect('/io/deliverables');
 
@@ -154,6 +153,7 @@ class List extends React.Component {
     });
   }
 
+  // issue with posting to the database, commented out code is meant to update the database to persist the change made by drag and drop functionality
   updateDeliverableStatus(currentDeliverable, newDeliverable) {
     // const context = this.context;
     // const postNewStatus = (newDeliverable, context) => {
@@ -196,10 +196,26 @@ class List extends React.Component {
     } else {
       return (
         <div id="deliverables">
-          <CurrentTasks deliverables={this.state.deliverables.current} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
-          <Backlog deliverables={this.state.deliverables.backlog} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
-          <Icebox deliverables={this.state.deliverables.icebox} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
-          <CompletedTasks deliverables={this.state.deliverables.complete} deleteDeliverable={this.deleteDeliverable.bind(this)} updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}/>
+          <CurrentTasks
+            deliverables={this.state.deliverables.current}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={1}/>
+          <Backlog
+            deliverables={this.state.deliverables.backlog}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={2}/>
+          <Icebox
+            deliverables={this.state.deliverables.icebox}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={3}/>
+          <CompletedTasks
+            deliverables={this.state.deliverables.complete}
+            deleteDeliverable={this.deleteDeliverable.bind(this)}
+            updateDeliverableStatus={this.updateDeliverableStatus.bind(this)}
+            sectionId={4}/>
         </div>
       );
     }
@@ -208,4 +224,3 @@ class List extends React.Component {
 
 exports.Form = Form;
 exports.List = List;
-//exports.DragDropContext = DragDropContext(HTML5Backend)(List);

@@ -6,26 +6,33 @@ import flow from 'lodash/flow';
 
 const deliverableSource = {
   beginDrag(props) {
-    //console.log('state from devSource', this.state);
-    //console.log('props', props, 'id', props.id)
-    //this.state.deliverables.splice(props.index, 1);
+    console.log(props.sectionId);
     return {
-      id: props.id,
+      sectionId: props.sectionId,
       currentDeliverable: props.deliverable,
+      removeDeliverable: props.removeDeliverable,
       updateDeliverableStatus: props.updateDeliverableStatus,
       index: props.index
     };
+  },
+  endDrag(props, monitor) {
+    console.log('endDrag ran');
+    const item = monitor.getItem();
+    const dropResult = monitor.getDropResult();
+    console.log(item);
+    console.log(dropResult);
+    if(dropResult && dropResult.sectionId !== item.sectionId) {
+      props.removeDeliverable(item.index)
+    }
   }
 
 };
 
 const deliverableTarget = {
   hover(props, monitor, component) {
-    console.log('hover devComp', props)
-    console.log('hover component', component)
-    console.log('hover monitor', monitor.getItem());
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
+    const sourceId = monitor.getItem().sectionId;
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
       return;
@@ -46,10 +53,12 @@ const deliverableTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-    // Time to actually perform the action
-    props.moveDeliverable(dragIndex, hoverIndex);
-    monitor.getItem().index = hoverIndex;
-  },
+    if (props.sectionId === sourceId) {
+      // Time to actually perform the action
+      props.moveDeliverable(dragIndex, hoverIndex);
+      monitor.getItem().index = hoverIndex;
+    }
+  }
 };
 
 function collect(connect, monitor) {
@@ -71,7 +80,6 @@ class Deliverable extends Component {
       updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
-    //console.log('updateDeliverableStatus',updateDeliverableStatus);
     return connectDragSource(connectDropTarget(
       <tr>
         <th scope="row">{deliverable.id}</th>
@@ -91,21 +99,8 @@ Deliverable.PropTypes = {
   deliverable: PropTypes.object.isRequired,
   deleteDeliverable: PropTypes.func.isRequired
 };
-// const Deliverable = ({deliverable, deleteDeliverable}) => (
-//   <tr>
-//     <th scope="row">{deliverable.id}</th>
-//     <td>{deliverable.task}</td>
-//     <td>{deliverable.owner}</td>
-//     <td>{deliverable.points}</td>
-//     <td><i className="fa fa-times right" aria-hidden="true" onClick={() => deleteDeliverable(deliverable.id)}></i></td>
-//   </tr>
-// );
-// exports.Deliverable = Deliverable;
-// exports.deliverableSource = deliverableSource;
+
 export default flow(
   DragSource(ItemTypes.DELIVERABLE, deliverableSource, collect),
   DropTarget(ItemTypes.DELIVERABLE, deliverableTarget, connect => ({connectDropTarget: connect.dropTarget()}))
   )(Deliverable);
-
-
-

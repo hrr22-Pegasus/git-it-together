@@ -1,6 +1,5 @@
 import React from 'react'
 import AuthService from '../config/AuthService.js'
-//import styles from './styles.module.css'
 
 export class Login extends React.Component {
 

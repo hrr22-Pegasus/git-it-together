@@ -5,14 +5,24 @@ import Deliverable from './deliverableComponent.jsx';
 import { ItemTypes } from './itemTypes';
 
 const completedTarget = {
-  drop(props, monitor) {
+  drop(props, monitor, component) {
 
-    const currentDeliverable = monitor.getItem().currentDeliverable;
-    const newDeliverable = JSON.parse(JSON.stringify(currentDeliverable));
-    newDeliverable.status = 'complete';
+    const id = props.sectionId;
+    const sourceObj = monitor.getItem();
+    if (id !== sourceObj.sectionId) {
+      component.pushDeliverable(sourceObj.currentDeliverable);
+    }
+    return {
+      sectionId: id
+    }
 
-    // monitor.getItem().updateDeliverableStatus(currentDeliverable, newDeliverable);
-    props.deliverables.push(newDeliverable);
+    // const currentDeliverable = monitor.getItem().currentDeliverable;
+    // const newDeliverable = JSON.parse(JSON.stringify(currentDeliverable));
+    // newDeliverable.status = 'complete';
+
+    // // code to call the update function after a deliverable has been dropped into a new container
+    // // monitor.getItem().updateDeliverableStatus(currentDeliverable, newDeliverable);
+    // props.deliverables.push(newDeliverable);
 
   }
 }
@@ -20,7 +30,8 @@ const completedTarget = {
 function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop()
   };
 }
 
@@ -32,6 +43,25 @@ class CompletedTasks extends Component {
       deliverables: props.deliverables
     };
   }
+
+  pushDeliverable(deliverable) {
+    this.setState(update(this.state, {
+      deliverables: {
+        $push: [ deliverable ]
+      }
+    }));
+  }
+
+  removeDeliverable(index) {
+    this.setState(update(this.state, {
+      deliverables: {
+        $splice: [
+          [index, 1]
+        ]
+      }
+    }));
+  }
+
   moveDeliverable(dragIndex, hoverIndex) {
     let context = this;
     const deliverables = this.state.deliverables;
@@ -50,6 +80,7 @@ class CompletedTasks extends Component {
     const {
       connectDropTarget,
       isOver,
+      canDrop,
       updateDeliverableStatus,
       deleteDeliverable
     } = this.props;
@@ -72,7 +103,16 @@ class CompletedTasks extends Component {
               </thead>
               <tbody>
                 {deliverables.map((deliverable, index) =>
-                <Deliverable deliverable={deliverable} index={index} id={deliverable.id} deleteDeliverable={deleteDeliverable.bind(this)} moveDeliverable={this.moveDeliverable.bind(this)} updateDeliverableStatus={updateDeliverableStatus.bind(this)}/>
+                <Deliverable
+                deliverable={deliverable}
+                index={index}
+                id={deliverable.id}
+                sectionId={this.props.sectionId}
+                pushDeliverable={this.pushDeliverable.bind(this)}
+                removeDeliverable={this.removeDeliverable.bind(this)}
+                deleteDeliverable={deleteDeliverable.bind(this)}
+                moveDeliverable={this.moveDeliverable.bind(this)}
+                updateDeliverableStatus={updateDeliverableStatus.bind(this)}/>
               )}
               </tbody>
             </table>
